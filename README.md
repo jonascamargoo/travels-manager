@@ -1,1 +1,1 @@
-# place-manager-api
+# places-manager-api
