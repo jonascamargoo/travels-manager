@@ -1,12 +1,17 @@
 package br.com.jonascamargo.placesmanager.api.models;
 
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.hateoas.RepresentationModel;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,6 +21,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "TB PLACES")
+@EntityListeners(AuditingEntityListener.class)
 public class Place extends RepresentationModel<Place> implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -25,8 +31,14 @@ public class Place extends RepresentationModel<Place> implements Serializable {
     private String name;
     private String city;
     private String state;
+    private String slug;
+    
+    @CreatedDate
     private LocalDateTime createdAt;
+    @LastModifiedDate
     private LocalDateTime updatedAt;
+
+   
 
     public static long getSerialversionuid() {
         return serialVersionUID;
@@ -78,6 +90,14 @@ public class Place extends RepresentationModel<Place> implements Serializable {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     
