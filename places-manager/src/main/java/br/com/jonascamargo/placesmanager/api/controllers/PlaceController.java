@@ -24,33 +24,33 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RestController
 public class PlaceController {
     
-    private PlaceService placeService;
+    private final PlaceService placeService;
 
     public PlaceController(PlaceService placeService) {
         this.placeService = placeService;
     }
 
-    @PostMapping("/lugar")
+    @PostMapping("/lugares")
     public ResponseEntity<Place> createPlace(@RequestBody @Valid PlaceRecordDto placeRecordDto) {
         Place createdPlace = placeService.createPlace(placeRecordDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPlace);
     }
 
-    @GetMapping("/lugar")
+    @GetMapping("/lugares")
     public ResponseEntity<List<Place>> getPlaces() {
       List<Place> places = placeService.getPlaces();
       return ResponseEntity.status(HttpStatus.OK).body(places);
     }
 
 
-    @GetMapping("lugar/lista-nome/{nome}")
-    public ResponseEntity<List<Place>> getPlacesFilteredByName(String name) {
-        List<Place> listPlaces = placeService.getPlacesFilteredByName(name);
-        return ResponseEntity.status(HttpStatus.OK).body(listPlaces);
+    @GetMapping("lugares/lista-nome/{name}")
+    public ResponseEntity<List<Place>> getPlacesByName(@PathVariable(value = "name") String name) {
+        List<Place> places = placeService.getPlacesByName(name);
+        return ResponseEntity.status(HttpStatus.OK).body(places);
     }
 
 
-    @GetMapping("/lugar/{id}")
+    @GetMapping("/lugares/{id}")
     public ResponseEntity<Object> getPlaceById(@PathVariable(value = "id") UUID id) {
         Optional<Place> placeO = placeService.getPlaceById(id);
         if(placeO.isEmpty()) {
@@ -60,8 +60,8 @@ public class PlaceController {
         return ResponseEntity.status(HttpStatus.OK).body(placeO.get());
     }
 
-    @GetMapping("/lugar/nome/{nome}")
-    public ResponseEntity<Object> getPlaceByName(String name) {
+    @GetMapping("/lugares/nome/{name}")
+    public ResponseEntity<Object> getPlaceByName(@PathVariable(value="name") String name) {
         Optional<Place> placeO = placeService.getPlaceByName(name);
         if(placeO.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lugar não encontrado para o nome: " + name);
@@ -70,7 +70,7 @@ public class PlaceController {
         return ResponseEntity.status(HttpStatus.OK).body(placeO);
     }
 
-    @PutMapping("/lugar/{id}")
+    @PutMapping("/lugares/{id}")
     public ResponseEntity<Object> editPlace(
         @PathVariable(value = "id") UUID id,
         @RequestBody @Valid PlaceRecordDto placeRecordDto

@@ -5,13 +5,15 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
 
 import br.com.jonascamargo.placesmanager.api.dtos.PlaceRecordDto;
 import br.com.jonascamargo.placesmanager.api.models.Place;
 import br.com.jonascamargo.placesmanager.api.repositories.PlaceRepository;
 
+@Service
 public class PlaceService {
-    private PlaceRepository placeRepository;
+    private final PlaceRepository placeRepository;
 
     //injecao via constructor
     public PlaceService(PlaceRepository placeRepository) {
@@ -36,7 +38,7 @@ public class PlaceService {
         return placeRepository.findOneByName(name);
     }
 
-    public List<Place> getPlacesFilteredByName(String name) {
+    public List<Place> getPlacesByName(String name) {
         return placeRepository.findListByName(name);
         
     }
