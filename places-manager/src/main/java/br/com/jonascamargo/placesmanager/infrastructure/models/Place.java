@@ -1,4 +1,4 @@
-package br.com.jonascamargo.placesmanager.api.models;
+package br.com.jonascamargo.placesmanager.infrastructure.models;
 
 
 import java.io.Serializable;

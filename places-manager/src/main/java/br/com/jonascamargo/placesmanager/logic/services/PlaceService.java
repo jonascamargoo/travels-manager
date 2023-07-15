@@ -1,4 +1,4 @@
-package br.com.jonascamargo.placesmanager.api.services;
+package br.com.jonascamargo.placesmanager.logic.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.github.slugify.Slugify;
 
-import br.com.jonascamargo.placesmanager.api.dtos.PlaceRecordDto;
-import br.com.jonascamargo.placesmanager.api.models.Place;
-import br.com.jonascamargo.placesmanager.api.repositories.PlaceRepository;
+import br.com.jonascamargo.placesmanager.infrastructure.dtos.PlaceRecordDto;
+import br.com.jonascamargo.placesmanager.infrastructure.models.Place;
+import br.com.jonascamargo.placesmanager.infrastructure.repositories.PlaceRepository;
 
 @Service
 public class PlaceService {

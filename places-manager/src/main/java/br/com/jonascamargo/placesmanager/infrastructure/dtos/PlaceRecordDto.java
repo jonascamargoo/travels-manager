@@ -1,4 +1,4 @@
-package br.com.jonascamargo.placesmanager.api.dtos;
+package br.com.jonascamargo.placesmanager.infrastructure.dtos;
 
 
 import java.time.LocalDateTime;
@@ -6,11 +6,10 @@ import java.time.LocalDateTime;
 import jakarta.validation.constraints.NotBlank;
 
 
-//faltam lidar com os horarios de createAt e updatedAt
 public record PlaceRecordDto(
         @NotBlank String name,
-        // @NotBlank String city,
-        //@NotBlank String state,
+        @NotBlank String city,
+        @NotBlank String state,
         String slug,
         LocalDateTime createdAt,
         LocalDateTime updatedAt

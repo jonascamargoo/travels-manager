@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.jonascamargo.placesmanager.api.dtos.PlaceRecordDto;
-import br.com.jonascamargo.placesmanager.api.models.Place;
-import br.com.jonascamargo.placesmanager.api.services.PlaceService;
+import br.com.jonascamargo.placesmanager.infrastructure.dtos.PlaceRecordDto;
+import br.com.jonascamargo.placesmanager.infrastructure.models.Place;
+import br.com.jonascamargo.placesmanager.logic.services.PlaceService;
 import jakarta.validation.Valid;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
