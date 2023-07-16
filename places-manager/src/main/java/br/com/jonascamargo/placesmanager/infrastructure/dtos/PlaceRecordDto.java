@@ -1,10 +1,7 @@
 package br.com.jonascamargo.placesmanager.infrastructure.dtos;
 
-
 import java.time.LocalDateTime;
-
 import jakarta.validation.constraints.NotBlank;
-
 
 public record PlaceRecordDto(
         @NotBlank String name,
