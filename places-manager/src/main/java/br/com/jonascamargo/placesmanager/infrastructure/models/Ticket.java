@@ -27,5 +27,48 @@ public class Ticket extends RepresentationModel<Ticket> implements Serializable 
     private LocalDateTime departureTime;
     private BigDecimal price;
     private LocalDateTime purchaseTime;
-
+    private String slug;
+    
+    public String getPassengerName() {
+        return passengerName;
+    }
+    public void setPassengerName(String passengerName) {
+        this.passengerName = passengerName;
+    }
+    public String getSource() {
+        return source;
+    }
+    public void setSource(String source) {
+        this.source = source;
+    }
+    public String getDestination() {
+        return destination;
+    }
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+    public LocalDateTime getDepartureTime() {
+        return departureTime;
+    }
+    public void setDepartureTime(LocalDateTime departureTime) {
+        this.departureTime = departureTime;
+    }
+    public BigDecimal getPrice() {
+        return price;
+    }
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+    public LocalDateTime getPurchaseTime() {
+        return purchaseTime;
+    }
+    public void setPurchaseTime(LocalDateTime purchaseTime) {
+        this.purchaseTime = purchaseTime;
+    }
+    public String getSlug() {
+        return slug;
+    }
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
 }

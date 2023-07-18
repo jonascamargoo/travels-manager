@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 public record PaymentRecordDto(
     @NotBlank String description,
     BigDecimal amount,
-    LocalDateTime paymentDateTime,
+    LocalDateTime paymentTime,
     String paymentMethod,
     String status
 

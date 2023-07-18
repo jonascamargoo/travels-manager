@@ -1,4 +1,1 @@
-# places-manager-api
-
-
-#Tratar os erros ao final
+# comercio entre passageiros e  empresas
