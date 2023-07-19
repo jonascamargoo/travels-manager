@@ -22,29 +22,30 @@ public class Ticket extends RepresentationModel<Ticket> implements Serializable 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private String passengerName;
-    private String source;
-    private String destination;
+    private Place source;
+    private Place destination;
     private LocalDateTime departureTime;
     private BigDecimal price;
     private LocalDateTime purchaseTime;
     private String slug;
-    
+    private boolean isSold;
+
     public String getPassengerName() {
         return passengerName;
     }
     public void setPassengerName(String passengerName) {
         this.passengerName = passengerName;
     }
-    public String getSource() {
+    public Place getSource() {
         return source;
     }
-    public void setSource(String source) {
+    public void setSource(Place source) {
         this.source = source;
     }
-    public String getDestination() {
+    public Place getDestination() {
         return destination;
     }
-    public void setDestination(String destination) {
+    public void setDestination(Place destination) {
         this.destination = destination;
     }
     public LocalDateTime getDepartureTime() {
@@ -70,5 +71,11 @@ public class Ticket extends RepresentationModel<Ticket> implements Serializable 
     }
     public void setSlug(String slug) {
         this.slug = slug;
+    }
+    public boolean getIsSold() {
+        return isSold;
+    }
+    public void setSold(boolean isSold) {
+        this.isSold = isSold;
     }
 }

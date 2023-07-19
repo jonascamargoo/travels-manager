@@ -16,9 +16,11 @@ import br.com.jonascamargo.placesmanager.infrastructure.repositories.TicketRepos
 public class TicketService {
     private final TicketRepository ticketRepository;
     private Slugify slug;
+    private boolean available;
     public TicketService(TicketRepository ticketRepository) {
         this.ticketRepository = ticketRepository;
         this.slug = Slugify.builder().build();
+        this.available = true;
     }
 
     public Ticket createTicket(TicketRecordDto ticketRecordDto) { 
@@ -29,6 +31,9 @@ public class TicketService {
         
     }
 
+    
+
+    
     public boolean isTicketTimeStillValid(Ticket ticket) {
         Duration duration = Duration.between(ticket.getPurchaseTime(), ticket.getDepartureTime());
         return duration.toMinutes() >= 30;

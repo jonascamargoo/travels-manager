@@ -16,17 +16,19 @@ import br.com.jonascamargo.placesmanager.infrastructure.repositories.PlaceReposi
 @Service
 public class PlaceService {
     private final PlaceRepository placeRepository;
-    private Slugify slg;
+    private Slugify slug;
+
     //injecao via constructor
     public PlaceService(PlaceRepository placeRepository) {
         this.placeRepository = placeRepository;
-        this.slg = Slugify.builder().build();
+        this.slug = Slugify.builder().build();
+        
     }
 
     public Place createPlace(PlaceRecordDto placeRecordDto) {
         Place place = new Place();
         BeanUtils.copyProperties(placeRecordDto, place);
-        place.setSlug(slg.slugify(placeRecordDto.name()));
+        place.setSlug(slug.slugify(placeRecordDto.name()));
         return placeRepository.save(place);
     }
 
