@@ -19,15 +19,6 @@ public class PassengerService {
         this.slug = Slugify.builder().build();
     }
 
-    //funcao para teste
-    public int numValidatorTest(int a) {
-        return a;
-    }
-
-    public boolean isLegalAge(int age) {
-        return age >= 18;
-    }
-
     
     public Passenger createPassenger(PassengerRecordDto passengerRecordDto) {
         Passenger passenger = new Passenger();
@@ -36,6 +27,8 @@ public class PassengerService {
         return passengerRepository.save(passenger);
         
     }
+
+
     
 
 }

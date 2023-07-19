@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.hateoas.RepresentationModel;
 
+import br.com.jonascamargo.placesmanager.infrastructure.enums.PaymentStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,8 +21,27 @@ public class Payment extends RepresentationModel<Payment> implements Serializabl
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String description;
     private BigDecimal amount;
-    private String paymentMethod;
-    private String status;
+    private PaymentStatus paymentStatus;
+    private String slug;
+    public String getSlug() {
+        return slug;
+    }
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+    public PaymentStatus getPaymentStatus() {
+        return paymentStatus;
+    }
+    public void setPaymentStatus(PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+    private Passenger buyer;
+    public Passenger getBuyer() {
+        return buyer;
+    }
+    public void setBuyer(Passenger buyer) {
+        this.buyer = buyer;
+    }
     private LocalDateTime paymentTime;
     public static long getSerialversionuid() {
         return serialVersionUID;
@@ -38,24 +58,14 @@ public class Payment extends RepresentationModel<Payment> implements Serializabl
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
-    public String getPaymentMethod() {
-        return paymentMethod;
-    }
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-    public String getStatus() {
-        return status;
-    }
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    
     public LocalDateTime getPaymentTime() {
         return paymentTime;
     }
     public void setPaymentTime(LocalDateTime paymentTime) {
         this.paymentTime = paymentTime;
     }
+    
 
     
 }

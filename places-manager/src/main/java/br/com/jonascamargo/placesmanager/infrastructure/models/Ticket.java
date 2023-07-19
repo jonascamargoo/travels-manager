@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.hateoas.RepresentationModel;
 
+import br.com.jonascamargo.placesmanager.infrastructure.enums.TicketStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
@@ -28,8 +29,14 @@ public class Ticket extends RepresentationModel<Ticket> implements Serializable 
     private BigDecimal price;
     private LocalDateTime purchaseTime;
     private String slug;
-    private boolean isSold;
+    private TicketStatus ticketStatus;
 
+    public TicketStatus getTicketStatus() {
+        return ticketStatus;
+    }
+    public void setTicketStatus(TicketStatus ticketStatus) {
+        this.ticketStatus = ticketStatus;
+    }
     public String getPassengerName() {
         return passengerName;
     }
@@ -72,10 +79,5 @@ public class Ticket extends RepresentationModel<Ticket> implements Serializable 
     public void setSlug(String slug) {
         this.slug = slug;
     }
-    public boolean getIsSold() {
-        return isSold;
-    }
-    public void setSold(boolean isSold) {
-        this.isSold = isSold;
-    }
+   
 }

@@ -10,6 +10,4 @@ import br.com.jonascamargo.placesmanager.infrastructure.models.Passenger;
 
 public interface PassengerRepository extends JpaRepository<Passenger, UUID>{
     Optional<Passenger> findOneByName(String name);
-    
-
 }
