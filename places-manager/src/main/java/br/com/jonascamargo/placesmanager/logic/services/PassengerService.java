@@ -1,5 +1,9 @@
 package br.com.jonascamargo.placesmanager.logic.services;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +32,13 @@ public class PassengerService {
         
     }
 
+    public List<Passenger> getPassengers() {
+        return passengerRepository.findAll();
+    } 
+
+    public Optional<Passenger> getPassengerById(UUID id) {
+        return passengerRepository.findById(id);
+    }
 
     
 
