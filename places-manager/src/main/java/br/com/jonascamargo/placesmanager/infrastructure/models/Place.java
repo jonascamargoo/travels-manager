@@ -3,6 +3,7 @@ package br.com.jonascamargo.placesmanager.infrastructure.models;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -32,7 +33,8 @@ public class Place extends RepresentationModel<Place> implements Serializable {
     private String city;
     private String state;
     private String slug;
-    
+    private List<Ticket> ticketList;
+
     @CreatedDate
     private LocalDateTime createdAt;
     @LastModifiedDate
@@ -98,6 +100,14 @@ public class Place extends RepresentationModel<Place> implements Serializable {
 
     public void setSlug(String slug) {
         this.slug = slug;
+    }
+
+    public List<Ticket> getTicketList() {
+        return ticketList;
+    }
+
+    public void setTicketList(List<Ticket> ticketList) {
+        this.ticketList = ticketList;
     }
 
     

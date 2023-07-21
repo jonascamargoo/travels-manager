@@ -13,6 +13,8 @@ import br.com.jonascamargo.placesmanager.infrastructure.dtos.PlaceRecordDto;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Place;
 import br.com.jonascamargo.placesmanager.infrastructure.repositories.PlaceRepository;
 
+//Todos os casos do Optional estarem vazios serao tratados na class de excecoes que sera criada junto aos teste
+
 @Service
 public class PlaceService {
     private final PlaceRepository placeRepository;
@@ -46,12 +48,23 @@ public class PlaceService {
 
     public List<Place> getPlacesByName(String name) {
         return placeRepository.findListByName(name);
-        
     }
 
     public Place editPlace(PlaceRecordDto placeRecordDto, Place place) {
         BeanUtils.copyProperties(placeRecordDto, place);
         return placeRepository.save(place);
+    }
+
+    public void deletePlaceById(UUID id) {
+        Optional<Place> place = placeRepository.findById(id);
+        if(!isAvailableToDelete(place.get())) {
+            throw new IllegalArgumentException("Deletion failed. There is one or more tickets associated with this place.");
+        }
+        placeRepository.deleteById(id);
+    }
+
+    public boolean isAvailableToDelete(Place place) {
+        return place.getTicketList().isEmpty();
     }
     
 }

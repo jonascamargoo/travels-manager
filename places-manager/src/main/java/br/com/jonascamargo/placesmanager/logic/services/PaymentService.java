@@ -44,7 +44,7 @@ public class PaymentService {
         //     throw new IllegalArgumentException("Passenger not found.");
 
         if(!isValidPayment(paymentRecordDto, ticket.get(), passenger.get()))
-             throw new IllegalArgumentException("Payment invalid.");
+            throw new IllegalArgumentException("Payment invalid.");
         Payment payment = new Payment();
         BeanUtils.copyProperties(paymentRecordDto, payment);
         payment.setSlug(slug.slugify(paymentRecordDto.description()));
