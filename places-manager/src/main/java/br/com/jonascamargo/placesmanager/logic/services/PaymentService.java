@@ -8,14 +8,16 @@ import org.springframework.stereotype.Service;
 
 import com.github.slugify.Slugify;
 
+import br.com.jonascamargo.placesmanager.enums.PaymentMethod;
+import br.com.jonascamargo.placesmanager.enums.TicketStatus;
 import br.com.jonascamargo.placesmanager.infrastructure.dtos.PaymentRecordDto;
-import br.com.jonascamargo.placesmanager.infrastructure.enums.TicketStatus;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Passenger;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Payment;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Ticket;
 import br.com.jonascamargo.placesmanager.infrastructure.repositories.PassengerRepository;
 import br.com.jonascamargo.placesmanager.infrastructure.repositories.PaymentRepository;
 import br.com.jonascamargo.placesmanager.infrastructure.repositories.TicketRepository;
+import br.com.jonascamargo.placesmanager.logic.CreditCardValidation;
 
 @Service
 public class PaymentService {
@@ -33,6 +35,7 @@ public class PaymentService {
         this.slug = Slugify.builder().build();
     }
 
+    // Utilizar o RabbitMQ para enviar a confirmacao de pagamento
     public Payment createPayment(PaymentRecordDto paymentRecordDto) {
         // Retrieve the Ticket object based on the provided ticketId
         Optional<Ticket> ticket = ticketRepository.findById(paymentRecordDto.ticketId());
@@ -54,7 +57,8 @@ public class PaymentService {
     public boolean isValidPayment(PaymentRecordDto paymentRecordDto, Ticket ticket, Passenger passenger) {
         return  isTicketAvailable(ticket, passenger) &&
                 isAmountEnough(paymentRecordDto, ticket) &&
-                isPassengerLegalAge(passenger);
+                isPassengerLegalAge(passenger) &&
+                isPaymentMethodValid(paymentRecordDto);
 
     }
 
@@ -69,6 +73,18 @@ public class PaymentService {
     public boolean isPassengerLegalAge(Passenger passenger) {
         return passenger.getAge() >= 18;
     }
+
+    public boolean isPaymentMethodValid(PaymentRecordDto paymentRecordDto) {
+        PaymentMethod paymentMethod = paymentRecordDto.paymentMethod();
+        if(paymentMethod == PaymentMethod.CREDIT_CARD) {
+            return CreditCardValidation.isCreditCardValid(paymentRecordDto.cardDigits());
+        }
+        return true; //validacao por boleto sempre verdadeira
+    }
+
+    
+
+
  
     
 }

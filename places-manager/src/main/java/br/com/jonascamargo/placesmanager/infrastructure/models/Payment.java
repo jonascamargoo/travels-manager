@@ -6,7 +6,8 @@ import java.time.LocalDateTime;
 
 import org.springframework.hateoas.RepresentationModel;
 
-import br.com.jonascamargo.placesmanager.infrastructure.enums.PaymentStatus;
+import br.com.jonascamargo.placesmanager.enums.PaymentMethod;
+import br.com.jonascamargo.placesmanager.enums.PaymentStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +24,15 @@ public class Payment extends RepresentationModel<Payment> implements Serializabl
     private BigDecimal amount;
     private PaymentStatus paymentStatus;
     private String slug;
+    private LocalDateTime paymentTime;
+    private PaymentMethod paymentMethod;
+
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
     public String getSlug() {
         return slug;
     }
@@ -42,7 +52,7 @@ public class Payment extends RepresentationModel<Payment> implements Serializabl
     public void setBuyer(Passenger buyer) {
         this.buyer = buyer;
     }
-    private LocalDateTime paymentTime;
+    
     public static long getSerialversionuid() {
         return serialVersionUID;
     }

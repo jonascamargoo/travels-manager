@@ -1,4 +1,4 @@
-package br.com.jonascamargo.placesmanager.infrastructure.enums;
+package br.com.jonascamargo.placesmanager.enums;
 
 public enum PaymentStatus {
     PENDING,

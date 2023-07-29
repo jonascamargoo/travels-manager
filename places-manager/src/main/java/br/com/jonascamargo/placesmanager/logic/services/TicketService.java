@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.github.slugify.Slugify;
 
+import br.com.jonascamargo.placesmanager.enums.TicketStatus;
 import br.com.jonascamargo.placesmanager.infrastructure.dtos.TicketRecordDto;
-import br.com.jonascamargo.placesmanager.infrastructure.enums.TicketStatus;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Ticket;
 import br.com.jonascamargo.placesmanager.infrastructure.repositories.TicketRepository;
 

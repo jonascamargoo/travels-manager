@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.hateoas.RepresentationModel;
 
-import br.com.jonascamargo.placesmanager.infrastructure.enums.TicketStatus;
+import br.com.jonascamargo.placesmanager.enums.TicketStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
