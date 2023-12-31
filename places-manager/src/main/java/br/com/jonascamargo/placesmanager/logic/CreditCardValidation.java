@@ -25,7 +25,6 @@ public class CreditCardValidation {
         return false;
     }
 
-
     public static String invertString(String cardNumber) {
         int length = cardNumber.length();
         StringBuilder reversedString = new StringBuilder(length);
@@ -34,7 +33,5 @@ public class CreditCardValidation {
         }
         return reversedString.toString();
     }
-
-
 
 }

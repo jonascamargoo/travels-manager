@@ -41,11 +41,6 @@ public class PaymentService {
         Optional<Ticket> ticket = ticketRepository.findById(paymentRecordDto.ticketId());
         Optional<Passenger> passenger = passengerRepository.findById(paymentRecordDto.passengerId());
 
-        // if (ticket.isEmpty())
-        //     throw new IllegalArgumentException("Ticket not found."); //devo tratar no controller por enquanto?
-        // if (passenger.isEmpty())
-        //     throw new IllegalArgumentException("Passenger not found.");
-
         if(!isValidPayment(paymentRecordDto, ticket.get(), passenger.get()))
             throw new IllegalArgumentException("Payment invalid.");
         Payment payment = new Payment();

@@ -74,21 +74,21 @@
 //     }
 
 
-//     // @Test
-//     // @DisplayName("deve remover ticket")
-//     // public void deveRemoverVenda() {
-//     //     String ticketId = "id-mock";
-//     //     Ticket ticket = Mockito.mock(Ticket.class);
-//     //     Mockito.when(ticket.getValorRecebido()).thenReturn(BigDecimal.TEN);
-//     //     Mockito.when(ticket.getItens()).thenReturn(Collections.emptyList());
-//     //     Mockito.when(ticket.getValorTotal()).thenReturn(BigDecimal.TEN);
-//     //     Optional<Venda> vendaOptoOptional = Optional.of(venda);
-//     //     Mockito.when(repository.findById(ArgumentMatchers.eq(vendaId))).thenReturn(vendaOptoOptional);
+//     @Test
+//     @DisplayName("deve remover ticket")
+//     public void deveRemoverVenda() {
+//         String ticketId = "id-mock";
+//         Ticket ticket = Mockito.mock(Ticket.class);
+//         Mockito.when(ticket.getValorRecebido()).thenReturn(BigDecimal.TEN);
+//         Mockito.when(ticket.getItens()).thenReturn(Collections.emptyList());
+//         Mockito.when(ticket.getValorTotal()).thenReturn(BigDecimal.TEN);
+//         Optional<Venda> vendaOptoOptional = Optional.of(venda);
+//         Mockito.when(repository.findById(ArgumentMatchers.eq(vendaId))).thenReturn(vendaOptoOptional);
 
-//     //     vendaService.removerVenda(vendaId);
-//     //     Mockito.verify(repository, Mockito.times(1)).delete(ArgumentMatchers.any(Venda.class));
-//     //     Mockito.verify(estoqueService, Mockito.never()).adicionarNoEstoque(ArgumentMatchers.any(), ArgumentMatchers.any());
-//     //     Mockito.verify(titulosReceberService, Mockito.never()).removerTitulo(ArgumentMatchers.any());
-//     // }
+//         vendaService.removerVenda(vendaId);
+//         Mockito.verify(repository, Mockito.times(1)).delete(ArgumentMatchers.any(Venda.class));
+//         Mockito.verify(estoqueService, Mockito.never()).adicionarNoEstoque(ArgumentMatchers.any(), ArgumentMatchers.any());
+//         Mockito.verify(titulosReceberService, Mockito.never()).removerTitulo(ArgumentMatchers.any());
+//     }
 
 // }

@@ -1,14 +1,51 @@
 package br.com.jonascamargo.placesmanager.logic.services;
 
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-// @RunWith(SpringRunner.class)
-// public class PlaceServiceTest {
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
-//     PlaceService placeService;
+import br.com.jonascamargo.placesmanager.infrastructure.dtos.PlaceRecordDto;
+import br.com.jonascamargo.placesmanager.infrastructure.models.Place;
+import br.com.jonascamargo.placesmanager.infrastructure.repositories.PlaceRepository;
 
-//     @Test
-//     public void placeTestService
 
-// }
+public class PlaceServiceTest {
+
+    @Mock
+    PlaceRepository placeRepository;
+
+    @InjectMocks
+    PlaceService placeService;
+
+    @Test
+    @DisplayName("Should create a service successfully when everything is ok")
+    void createPlace() {
+        // Arrange
+        PlaceRecordDto placeRecordDto = new PlaceRecordDto("Test Place", "Test City", "Test State", null, null, null);
+        
+        // Mocking behavior
+        when(placeRepository.save(any())).thenReturn(new Place());
+
+        // Act
+        Place createdPlace = placeService.createPlace(placeRecordDto);
+
+        // Assert
+        assertNotNull(createdPlace);
+        verify(placeRepository, times(1)).save(any());
+
+        
+
+    }
+
+
+}
+
+
+    

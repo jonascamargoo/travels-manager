@@ -1,15 +1,15 @@
-package br.com.jonascamargo.placesmanager.logic.services;
+// package br.com.jonascamargo.placesmanager.logic.services;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.junit4.SpringRunner;
+// import org.junit.Before;
+// import org.junit.Test;
+// import org.junit.jupiter.api.Assertions;
+// import org.junit.runner.RunWith;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.boot.test.context.TestConfiguration;
+// import org.springframework.context.annotation.Bean;
+// import org.springframework.test.context.junit4.SpringRunner;
 
-import br.com.jonascamargo.placesmanager.infrastructure.repositories.PassengerRepository;
+// import br.com.jonascamargo.placesmanager.infrastructure.repositories.PassengerRepository;
 
 // @RunWith(SpringRunner.class)
 // public class PassengerServiceTest {

@@ -40,8 +40,6 @@ public class Place extends RepresentationModel<Place> implements Serializable {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-   
-
     public static long getSerialversionuid() {
         return serialVersionUID;
     }
