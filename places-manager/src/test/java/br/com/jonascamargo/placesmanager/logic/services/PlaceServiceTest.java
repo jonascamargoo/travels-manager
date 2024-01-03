@@ -6,10 +6,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import br.com.jonascamargo.placesmanager.infrastructure.dtos.PlaceRecordDto;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Place;
@@ -17,15 +19,19 @@ import br.com.jonascamargo.placesmanager.infrastructure.repositories.PlaceReposi
 
 
 public class PlaceServiceTest {
-
     @Mock
     PlaceRepository placeRepository;
 
     @InjectMocks
     PlaceService placeService;
 
+    @BeforeEach
+    void setup() {
+        MockitoAnnotations.openMocks(this);
+    }
+
     @Test
-    @DisplayName("Should create a service successfully when everything is ok")
+    @DisplayName("Should create a place successfully when everything is ok")
     void createPlace() {
         // Arrange
         PlaceRecordDto placeRecordDto = new PlaceRecordDto("Test Place", "Test City", "Test State", null, null, null);
