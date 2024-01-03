@@ -35,55 +35,48 @@ public class TicketServiceTest {
     @BeforeEach
     void setup() {
         MockitoAnnotations.openMocks(this);
-        
+
     }
 
     @Test
     @DisplayName("Check if Ticket Time is Valid")
     void isValidTicketTime() {
-        // Create a TicketRecordDto with a purchase 31 minutes before departure (valid)
-        TicketRecordDto validReq = new TicketRecordDto(
-            "city0",
-            "city1",
-            new BigDecimal(100),
-            LocalDateTime.now().minus(31, ChronoUnit.MINUTES),
-            LocalDateTime.now().plus(1, ChronoUnit.HOURS)
-        );
-        
-        // Verify if the method returns true for a valid time
-        assertTrue(ticketService.isTicketTimeStillValid(validReq));
-
-        // Create a TicketRecordDto with a purchase 25 minutes before departure (invalid)
+        // Create a TicketRecordDto with a purchase 25 minutes before departure
+        // (invalid)
         TicketRecordDto invalidReq = new TicketRecordDto(
-            "city0",
-            "city1",
-            new BigDecimal(100),
-            LocalDateTime.now().minus(25, ChronoUnit.MINUTES),
-            LocalDateTime.now().plus(0, ChronoUnit.HOURS)
-        );
-        
+                "city0",
+                "city1",
+                new BigDecimal(100),
+                LocalDateTime.now().minus(25, ChronoUnit.MINUTES),
+                LocalDateTime.now().plus(0, ChronoUnit.HOURS));
+
         // Verify if the method returns false for an invalid time
         assertFalse(ticketService.isTicketTimeStillValid(invalidReq));
+
+        // Create a TicketRecordDto with a purchase 91 minutes before departure (valid)
+        TicketRecordDto validReq = new TicketRecordDto(
+                "city0",
+                "city1",
+                new BigDecimal(100),
+                LocalDateTime.now().minus(31, ChronoUnit.MINUTES),
+                LocalDateTime.now().plus(1, ChronoUnit.HOURS));
+        assertTrue(ticketService.isTicketTimeStillValid(validReq));
     }
 
     @Test
     @DisplayName("Should create a ticket successfully when everything is ok")
     void createTicket() {
+        // valid
         TicketRecordDto validReq = new TicketRecordDto(
-            "city0",
-            "city1",
-            new BigDecimal(100),
-            LocalDateTime.now().minus(31, ChronoUnit.MINUTES),
-            LocalDateTime.now().plus(1, ChronoUnit.HOURS)
-        );
+                "city0",
+                "city1",
+                new BigDecimal(100),
+                LocalDateTime.now().minus(31, ChronoUnit.MINUTES),
+                LocalDateTime.now().plus(1, ChronoUnit.HOURS));
         when(ticketRepository.save(any())).thenReturn(new Ticket());
         Ticket createdTicket = ticketService.createTicket(validReq);
         assertNotNull(createdTicket);
         verify(ticketRepository, times(1)).save(any());
-
     }
-
-
-    
 
 }
