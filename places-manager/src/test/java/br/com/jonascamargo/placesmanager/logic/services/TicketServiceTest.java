@@ -1,94 +1,89 @@
-// package br.com.jonascamargo.placesmanager.logic.services;
+package br.com.jonascamargo.placesmanager.logic.services;
 
-// import java.math.BigDecimal;
-// import java.time.LocalDateTime;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-// import org.junit.Test;
-// import org.junit.jupiter.api.Assertions;
-// import org.junit.jupiter.api.BeforeEach;
-// import org.junit.jupiter.api.DisplayName;
-// import org.mockito.ArgumentMatchers;
-// import org.mockito.Mockito;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.boot.test.context.SpringBootTest;
-// import org.springframework.boot.test.context.TestConfiguration;
-// import org.springframework.boot.test.mock.mockito.MockBean;
-// import org.springframework.context.annotation.Bean;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
-// import br.com.jonascamargo.placesmanager.ApplicationConfigTest;
-// import br.com.jonascamargo.placesmanager.infrastructure.models.Ticket;
-// import br.com.jonascamargo.placesmanager.infrastructure.repositories.TicketRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-// @DisplayName("TicketServiceTest")
-// public class TicketServiceTest extends ApplicationConfigTest {
+import br.com.jonascamargo.placesmanager.infrastructure.dtos.TicketRecordDto;
+import br.com.jonascamargo.placesmanager.infrastructure.models.Ticket;
+import br.com.jonascamargo.placesmanager.infrastructure.repositories.TicketRepository;
 
-//     @TestConfiguration
-//     static class TicketServiceTestConfig {
-//         @Bean
-//         public TicketService ticketService(TicketRepository ticketRepository) {
-//             return new TicketService(ticketRepository);
-//         }
-//     }
+@DisplayName("TicketServiceTest")
+public class TicketServiceTest {
 
-//     @Autowired
-//     TicketService ticketService;
+    @Mock
+    TicketRepository ticketRepository;
 
-//     @MockBean // pegamos os atributos do service e colocamos aqui como MockBean
-//     TicketRepository ticketRepository;
+    @InjectMocks
+    TicketService ticketService;
 
-//     @BeforeEach
-//     public void setup() {
-//         LocalDateTime purchaseTime = LocalDateTime.of(2023, 7, 17, 10, 0, 0);
-//         LocalDateTime departureTime = LocalDateTime.of(2023, 7, 17, 10, 15, 0);
-//         ticketService = new TicketService(ticketRepository);
+    @BeforeEach
+    void setup() {
+        MockitoAnnotations.openMocks(this);
+        
+    }
 
-//         Ticket ticket = new Ticket();
-//         ticket.setDepartureTime(departureTime);
-//         ticket.setPurchaseTime(purchaseTime);
+    @Test
+    @DisplayName("Check if Ticket Time is Valid")
+    void isValidTicketTime() {
+        // Create a TicketRecordDto with a purchase 31 minutes before departure (valid)
+        TicketRecordDto validReq = new TicketRecordDto(
+            "city0",
+            "city1",
+            new BigDecimal(100),
+            LocalDateTime.now().minus(31, ChronoUnit.MINUTES),
+            LocalDateTime.now().plus(1, ChronoUnit.HOURS)
+        );
+        
+        // Verify if the method returns true for a valid time
+        assertTrue(ticketService.isTicketTimeStillValid(validReq));
 
-//         Mockito.when(ticketRepository.findByPassengerName(Mockito.anyString()))
-//                 .thenReturn(java.util.Optional.of(ticket));
+        // Create a TicketRecordDto with a purchase 25 minutes before departure (invalid)
+        TicketRecordDto invalidReq = new TicketRecordDto(
+            "city0",
+            "city1",
+            new BigDecimal(100),
+            LocalDateTime.now().minus(25, ChronoUnit.MINUTES),
+            LocalDateTime.now().plus(0, ChronoUnit.HOURS)
+        );
+        
+        // Verify if the method returns false for an invalid time
+        assertFalse(ticketService.isTicketTimeStillValid(invalidReq));
+    }
 
-//     }
+    @Test
+    @DisplayName("Should create a ticket successfully when everything is ok")
+    void createTicket() {
+        TicketRecordDto validReq = new TicketRecordDto(
+            "city0",
+            "city1",
+            new BigDecimal(100),
+            LocalDateTime.now().minus(31, ChronoUnit.MINUTES),
+            LocalDateTime.now().plus(1, ChronoUnit.HOURS)
+        );
+        when(ticketRepository.save(any())).thenReturn(new Ticket());
+        Ticket createdTicket = ticketService.createTicket(validReq);
+        assertNotNull(createdTicket);
+        verify(ticketRepository, times(1)).save(any());
 
-//     @Test
-//     public void testIsTicketTimeStillValid() {
-//         // Crie um objeto Ticket que representa um ticket válido
-//         Ticket validTicket = new Ticket();
-//         TicketService ticketService = new TicketService(ticketRepository);
-//         validTicket.setDepartureTime(LocalDateTime.now().plusMinutes(30));
-//         validTicket.setPurchaseTime(LocalDateTime.now().minusMinutes(30));
-
-//         // // Verifique se o ticket válido retorna true para isTicketTimeStillValid()
-//         boolean validity = ticketService.isTicketTimeStillValid(validTicket);
-//         Assertions.assertTrue(validity);
-
-//         // Crie um objeto Ticket que representa um ticket inválido
-//         Ticket invalidTicket = new Ticket();
-//         invalidTicket.setDepartureTime(LocalDateTime.now().plusMinutes(10));
-//         invalidTicket.setPurchaseTime(LocalDateTime.now().minusMinutes(30));
-
-//         // Verifique se o ticket inválido retorna false para isTicketTimeStillValid()
-//         validity = ticketService.isTicketTimeStillValid(invalidTicket);
-//         Assertions.assertFalse(validity);
-//     }
+    }
 
 
-//     @Test
-//     @DisplayName("deve remover ticket")
-//     public void deveRemoverVenda() {
-//         String ticketId = "id-mock";
-//         Ticket ticket = Mockito.mock(Ticket.class);
-//         Mockito.when(ticket.getValorRecebido()).thenReturn(BigDecimal.TEN);
-//         Mockito.when(ticket.getItens()).thenReturn(Collections.emptyList());
-//         Mockito.when(ticket.getValorTotal()).thenReturn(BigDecimal.TEN);
-//         Optional<Venda> vendaOptoOptional = Optional.of(venda);
-//         Mockito.when(repository.findById(ArgumentMatchers.eq(vendaId))).thenReturn(vendaOptoOptional);
+    
 
-//         vendaService.removerVenda(vendaId);
-//         Mockito.verify(repository, Mockito.times(1)).delete(ArgumentMatchers.any(Venda.class));
-//         Mockito.verify(estoqueService, Mockito.never()).adicionarNoEstoque(ArgumentMatchers.any(), ArgumentMatchers.any());
-//         Mockito.verify(titulosReceberService, Mockito.never()).removerTitulo(ArgumentMatchers.any());
-//     }
-
-// }
+}

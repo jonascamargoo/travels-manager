@@ -35,18 +35,13 @@ public class PlaceServiceTest {
     void createPlace() {
         // Arrange
         PlaceRecordDto placeRecordDto = new PlaceRecordDto("Test Place", "Test City", "Test State", null, null, null);
-        
         // Mocking behavior
         when(placeRepository.save(any())).thenReturn(new Place());
-
         // Act
         Place createdPlace = placeService.createPlace(placeRecordDto);
-
         // Assert
         assertNotNull(createdPlace);
         verify(placeRepository, times(1)).save(any());
-
-        
 
     }
 

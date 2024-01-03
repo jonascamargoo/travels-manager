@@ -3,13 +3,11 @@ package br.com.jonascamargo.placesmanager.logic.services;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.slugify.Slugify;
 
 import br.com.jonascamargo.placesmanager.enums.PaymentMethod;
-import br.com.jonascamargo.placesmanager.enums.TicketStatus;
 import br.com.jonascamargo.placesmanager.infrastructure.dtos.PaymentRecordDto;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Passenger;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Payment;
@@ -22,16 +20,14 @@ import br.com.jonascamargo.placesmanager.logic.CreditCardValidation;
 @Service
 public class PaymentService {
     private PaymentRepository paymentRepository;
+    private TicketRepository ticketRepository;
+    private PassengerRepository passengerRepository;
     private Slugify slug;
 
-    @Autowired
-    private TicketRepository ticketRepository;
-    @Autowired
-    private PassengerRepository passengerRepository;
-    
-
-    public PaymentService(PaymentRepository paymentRepository) {
+    public PaymentService(PaymentRepository paymentRepository, TicketRepository ticketRepository, PassengerRepository passengerRepository) {
         this.paymentRepository = paymentRepository; //DEVO REALMENTE TRAZER MAIS ESSA DEPENDENCIA (TICKETREPOSITORY PRA CA???)
+        this.ticketRepository = ticketRepository;
+        this.passengerRepository = passengerRepository;
         this.slug = Slugify.builder().build();
     }
 
@@ -50,16 +46,12 @@ public class PaymentService {
     }
 
     public boolean isValidPayment(PaymentRecordDto paymentRecordDto, Ticket ticket, Passenger passenger) {
-        return  isTicketAvailable(ticket, passenger) &&
-                isAmountEnough(paymentRecordDto, ticket) &&
+        return  isAmountEnough(paymentRecordDto, ticket) &&
                 isPassengerLegalAge(passenger) &&
                 isPaymentMethodValid(paymentRecordDto);
 
     }
 
-    public boolean isTicketAvailable(Ticket ticket, Passenger passenger) {
-        return ticket.getTicketStatus() == TicketStatus.AVAILABLE;
-    }
 
     public boolean isAmountEnough(PaymentRecordDto paymentRecordDto,Ticket ticket) {
         return paymentRecordDto.amount().compareTo(ticket.getPrice()) > 0;
