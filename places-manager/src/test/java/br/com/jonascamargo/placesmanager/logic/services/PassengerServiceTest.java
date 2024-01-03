@@ -1,43 +1,49 @@
-// package br.com.jonascamargo.placesmanager.logic.services;
+package br.com.jonascamargo.placesmanager.logic.services;
 
-// import org.junit.Before;
-// import org.junit.Test;
-// import org.junit.jupiter.api.Assertions;
-// import org.junit.runner.RunWith;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.boot.test.context.TestConfiguration;
-// import org.springframework.context.annotation.Bean;
-// import org.springframework.test.context.junit4.SpringRunner;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-// import br.com.jonascamargo.placesmanager.infrastructure.repositories.PassengerRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-// @RunWith(SpringRunner.class)
-// public class PassengerServiceTest {
+import br.com.jonascamargo.placesmanager.infrastructure.dtos.PassengerRecordDto;
+import br.com.jonascamargo.placesmanager.infrastructure.models.Passenger;
 
-//     @TestConfiguration
-//     static class PassengerServiceTestConfig {
-//         @Bean
-//         public PassengerService passengerService() {
-//             return new PassengerService(); //nao preciso acessar o repository, posso apenas fazer o mock
-//         }
-//     }
+import br.com.jonascamargo.placesmanager.infrastructure.repositories.PassengerRepository;
 
+@DisplayName("Passanger Service Tests")
+public class PassengerServiceTest {
+    @Mock
+    PassengerRepository passengerRepository;
 
-//     @Autowired
-//     PassengerService passengerService;
+    @InjectMocks
+    PassengerService passengerService;
 
-//     @Test
-//     public void passengerTestServiceGeneral() {
-//         int result = passengerService.numValidatorTest(10);
-//         Assertions.assertEquals(10, result);
-        
-//     }
+    @BeforeEach
+    void setup() {
+        MockitoAnnotations.openMocks(this);
 
-    
+    }
 
-//     // @Test
-//     // public void passengerTestServiceIsLegalAge() {
-        
-//     // }
+    @Test
+    @DisplayName("Should create a passanger successfully when everything is ok")
+    void createPassenger() {
+        PassengerRecordDto validReq = new PassengerRecordDto(
+                "joao",
+                20,
+                "joao@gmail.com",
+                "4002-8922");
+        when(passengerRepository.save(any())).thenReturn(new Passenger());
+        Passenger creatPassenger = passengerService.createPassenger(validReq);
+        assertNotNull(creatPassenger);
+        verify(passengerRepository, times(1)).save(any());
+    }
 
-// }
+}
