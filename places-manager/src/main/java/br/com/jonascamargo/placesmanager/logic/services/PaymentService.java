@@ -23,9 +23,10 @@ public class PaymentService {
     private TicketRepository ticketRepository;
     private PassengerRepository passengerRepository;
     private Slugify slug;
+    private CreditCardValidation creditCardValidation;
 
     public PaymentService(PaymentRepository paymentRepository, TicketRepository ticketRepository, PassengerRepository passengerRepository) {
-        this.paymentRepository = paymentRepository; //DEVO REALMENTE TRAZER MAIS ESSA DEPENDENCIA (TICKETREPOSITORY PRA CA???)
+        this.paymentRepository = paymentRepository;
         this.ticketRepository = ticketRepository;
         this.passengerRepository = passengerRepository;
         this.slug = Slugify.builder().build();
@@ -52,7 +53,6 @@ public class PaymentService {
 
     }
 
-
     public boolean isAmountEnough(PaymentRecordDto paymentRecordDto,Ticket ticket) {
         return paymentRecordDto.amount().compareTo(ticket.getPrice()) > 0;
     }
@@ -62,11 +62,13 @@ public class PaymentService {
     }
 
     public boolean isPaymentMethodValid(PaymentRecordDto paymentRecordDto) {
+
         PaymentMethod paymentMethod = paymentRecordDto.paymentMethod();
         if(paymentMethod == PaymentMethod.CREDIT_CARD) {
-            return CreditCardValidation.isCreditCardValid(paymentRecordDto.cardDigits());
+            creditCardValidation = new CreditCardValidation();
+            return creditCardValidation.isCreditCardValid(paymentRecordDto.cardDigits());
         }
-        return true; //validacao por boleto sempre verdadeira
+        return true; // boleto aways valid
     }
 
     

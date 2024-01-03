@@ -3,7 +3,7 @@ package br.com.jonascamargo.placesmanager.logic;
 // Luhn algorithm for credit card validation - it doesn't provide entire validation for credit card, just part of them.
 
 public class CreditCardValidation {
-    public static boolean isCreditCardValid(String cardNumber) {
+    public boolean isCreditCardValid(String cardNumber) {
         String reversedString = invertString(cardNumber);
         int sumEven = 0, sumOdd = 0;
         int auxDigit;
@@ -25,7 +25,7 @@ public class CreditCardValidation {
         return false;
     }
 
-    public static String invertString(String cardNumber) {
+    public String invertString(String cardNumber) {
         int length = cardNumber.length();
         StringBuilder reversedString = new StringBuilder(length);
         for (int position = length - 1; position >= 0; position--) {

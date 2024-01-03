@@ -23,7 +23,7 @@ import br.com.jonascamargo.placesmanager.infrastructure.dtos.TicketRecordDto;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Ticket;
 import br.com.jonascamargo.placesmanager.infrastructure.repositories.TicketRepository;
 
-@DisplayName("TicketServiceTest")
+@DisplayName("Ticket Service Tests")
 public class TicketServiceTest {
 
     @Mock

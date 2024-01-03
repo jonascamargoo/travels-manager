@@ -17,7 +17,7 @@ import br.com.jonascamargo.placesmanager.infrastructure.dtos.PlaceRecordDto;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Place;
 import br.com.jonascamargo.placesmanager.infrastructure.repositories.PlaceRepository;
 
-
+@DisplayName("Place Service Tests")
 public class PlaceServiceTest {
     @Mock
     PlaceRepository placeRepository;

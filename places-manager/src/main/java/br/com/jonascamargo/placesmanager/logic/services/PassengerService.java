@@ -32,6 +32,8 @@ public class PassengerService {
         
     }
 
+   
+
     public List<Passenger> getPassengers() {
         return passengerRepository.findAll();
     } 
