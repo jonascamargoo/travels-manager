@@ -66,19 +66,18 @@ public class PaymentServiceTest {
         when(paymentRepository.save(any())).thenReturn(new Payment());
         when(ccvMock.isCreditCardValid(anyString())).thenReturn(true);
 
-        // Criando uma nova instância de PaymentService com o mock de
-        // CreditCardValidation
-        // PaymentService paymentService = new PaymentService(
-        //     paymentRepository,
-        //     ticketRepository,
-        //     passengerRepository);
-        // // Act
-        // Payment createdPayment = paymentService.createPayment(paymentRecordDto);
+        // Criando uma nova instância de PaymentService com o mock de CreditCardValidation
+        PaymentService paymentService = new PaymentService(
+            paymentRepository,
+            ticketRepository,
+            passengerRepository);
+        // Act
+        Payment createdPayment = paymentService.createPayment(paymentRecordDto);
 
-        // // Assert
-        // assertNotNull(createdPayment);
-        // verify(paymentRepository, times(1)).save(any());
-        // verify(ccvMock, times(1)).isCreditCardValid(any());
+        // Assert
+        assertNotNull(createdPayment);
+        verify(paymentRepository, times(1)).save(any());
+        verify(ccvMock, times(1)).isCreditCardValid(any());
     }
 
 }
