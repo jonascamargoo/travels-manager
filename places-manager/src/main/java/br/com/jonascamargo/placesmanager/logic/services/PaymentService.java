@@ -1,7 +1,5 @@
 package br.com.jonascamargo.placesmanager.logic.services;
 
-import java.util.Optional;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +23,8 @@ public class PaymentService {
     private Slugify slug;
     private CreditCardValidation creditCardValidation;
 
-    public PaymentService(PaymentRepository paymentRepository, TicketRepository ticketRepository, PassengerRepository passengerRepository) {
+    public PaymentService(PaymentRepository paymentRepository, TicketRepository ticketRepository,
+            PassengerRepository passengerRepository) {
         this.paymentRepository = paymentRepository;
         this.ticketRepository = ticketRepository;
         this.passengerRepository = passengerRepository;
@@ -35,25 +34,30 @@ public class PaymentService {
     // Utilizar o RabbitMQ para enviar a confirmacao de pagamento
     public Payment createPayment(PaymentRecordDto paymentRecordDto) {
         // Retrieve the Ticket object based on the provided ticketId
-        Optional<Ticket> ticket = ticketRepository.findById(paymentRecordDto.ticketId());
-        Optional<Passenger> passenger = passengerRepository.findById(paymentRecordDto.passengerId());
-
-        if(!isValidPayment(paymentRecordDto, ticket.get(), passenger.get()))
+        Ticket ticket = ticketRepository.findById(paymentRecordDto.ticketId())
+                .orElseThrow(() -> new IllegalArgumentException("Ticket not found"));
+        // Retrieve the Passenger object based on the provided passengerId
+        Passenger passenger = passengerRepository.findById(paymentRecordDto.passengerId())
+                .orElseThrow(() -> new IllegalArgumentException("Passenger not found"));
+        // Validate payment at the beginning
+        if (!isValidPayment(paymentRecordDto, ticket, passenger)) {
             throw new IllegalArgumentException("Payment invalid.");
+        }
         Payment payment = new Payment();
         BeanUtils.copyProperties(paymentRecordDto, payment);
         payment.setSlug(slug.slugify(paymentRecordDto.description()));
+        // Save Payment
         return paymentRepository.save(payment);
     }
 
     public boolean isValidPayment(PaymentRecordDto paymentRecordDto, Ticket ticket, Passenger passenger) {
-        return  isAmountEnough(paymentRecordDto, ticket) &&
+        return isAmountEnough(paymentRecordDto, ticket) &&
                 isPassengerLegalAge(passenger) &&
                 isPaymentMethodValid(paymentRecordDto);
 
     }
 
-    public boolean isAmountEnough(PaymentRecordDto paymentRecordDto,Ticket ticket) {
+    public boolean isAmountEnough(PaymentRecordDto paymentRecordDto, Ticket ticket) {
         return paymentRecordDto.amount().compareTo(ticket.getPrice()) > 0;
     }
 
@@ -64,16 +68,11 @@ public class PaymentService {
     public boolean isPaymentMethodValid(PaymentRecordDto paymentRecordDto) {
 
         PaymentMethod paymentMethod = paymentRecordDto.paymentMethod();
-        if(paymentMethod == PaymentMethod.CREDIT_CARD) {
+        if (paymentMethod == PaymentMethod.CREDIT_CARD) {
             creditCardValidation = new CreditCardValidation();
             return creditCardValidation.isCreditCardValid(paymentRecordDto.cardDigits());
         }
         return true; // boleto aways valid
     }
 
-    
-
-
- 
-    
 }
