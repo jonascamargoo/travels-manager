@@ -55,17 +55,17 @@ public class PlaceService {
         return placeRepository.save(place);
     }
 
-    public void deletePlaceById(UUID id) {
-        Optional<Place> place = placeRepository.findById(id);
-        if(!isAvailableToDelete(place.get())) {
-            throw new IllegalArgumentException("Deletion failed. There is one or more tickets associated with this place.");
-        }
-        placeRepository.deleteById(id);
-    }
+    // public void deletePlaceById(UUID id) {
+    //     Optional<Place> place = placeRepository.findById(id);
+    //     if(!isAvailableToDelete(place.get())) {
+    //         throw new IllegalArgumentException("Deletion failed. There is one or more tickets associated with this place.");
+    //     }
+    //     placeRepository.deleteById(id);
+    // }
 
-    public boolean isAvailableToDelete(Place place) {
-        return place.getTicketList().isEmpty();
-    }
+    // public boolean isAvailableToDelete(Place place) {
+    //     return place.getTicketList().isEmpty();
+    // }
     
 }
 

@@ -32,7 +32,8 @@ public class Place extends RepresentationModel<Place> implements Serializable {
     private String city;
     private String state;
     private String slug;
-    private List<Ticket> ticketList;
+    // preciso fazer o mapeamento
+    //private List<Ticket> ticketList;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -99,13 +100,13 @@ public class Place extends RepresentationModel<Place> implements Serializable {
         this.slug = slug;
     }
 
-    public List<Ticket> getTicketList() {
-        return ticketList;
-    }
+    // public List<Ticket> getTicketList() {
+    //     return ticketList;
+    // }
 
-    public void setTicketList(List<Ticket> ticketList) {
-        this.ticketList = ticketList;
-    }
+    // public void setTicketList(List<Ticket> ticketList) {
+    //     this.ticketList = ticketList;
+    // }
 
     
 

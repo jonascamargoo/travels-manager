@@ -19,6 +19,7 @@ import jakarta.persistence.Table;
 @Table(name = "TB TICKETS")
 @EntityListeners(AuditingEntityListener.class)
 public class Ticket extends RepresentationModel<Ticket> implements Serializable {
+    
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private String passengerName;
