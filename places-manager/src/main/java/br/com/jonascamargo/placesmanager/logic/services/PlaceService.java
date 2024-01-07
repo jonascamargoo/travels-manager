@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.github.slugify.Slugify;
 
 import br.com.jonascamargo.placesmanager.infrastructure.dtos.PlaceRecordDto;
+import br.com.jonascamargo.placesmanager.infrastructure.exception.customExceptions.PlaceNotFoundException;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Place;
 import br.com.jonascamargo.placesmanager.infrastructure.repositories.PlaceRepository;
 
@@ -38,8 +39,10 @@ public class PlaceService {
         return placeRepository.findAll();
     }
 
-    public Optional<Place> getPlaceById(UUID id) {
-        return placeRepository.findById(id);
+    public Place getPlaceById(UUID id) {
+        return placeRepository.findById(id).orElseThrow(PlaceNotFoundException::new);
+        
+        
     }
 
     public Optional<Place> getPlaceByName(String name) {

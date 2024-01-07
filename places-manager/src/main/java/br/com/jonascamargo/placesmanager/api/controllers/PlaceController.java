@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.jonascamargo.placesmanager.infrastructure.dtos.PlaceRecordDto;
+import br.com.jonascamargo.placesmanager.infrastructure.exception.customExceptions.PlaceNotFoundException;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Place;
 import br.com.jonascamargo.placesmanager.logic.services.PlaceService;
 import jakarta.validation.Valid;
@@ -24,7 +25,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class PlaceController {
-    
+
     private final PlaceService placeService;
 
     public PlaceController(PlaceService placeService) {
@@ -39,65 +40,64 @@ public class PlaceController {
 
     @GetMapping("/lugares")
     public ResponseEntity<List<Place>> getPlaces() {
-      List<Place> places = placeService.getPlaces();
-      return ResponseEntity.status(HttpStatus.OK).body(places);
+        List<Place> places = placeService.getPlaces();
+        return ResponseEntity.status(HttpStatus.OK).body(places);
     }
 
-
+    // esse metodo eh necessario?
     @GetMapping("lugares/lista-nome/{name}")
     public ResponseEntity<List<Place>> getPlacesByName(@PathVariable(value = "name") String name) {
         List<Place> places = placeService.getPlacesByName(name);
         return ResponseEntity.status(HttpStatus.OK).body(places);
     }
 
+    // @GetMapping("/lugares/{id}")
+    // public ResponseEntity<Object> getPlaceById(@PathVariable(value = "id") UUID id) {
+    //     Optional<Place> placeO = placeService.getPlaceById(id);
+    //     // ControllerAdvice cuidaria disso
+    //     if (placeO.isEmpty()) {
+    //         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lugar não encontrado");
+    //     }
+    //     placeO.get().add(linkTo(methodOn(PlaceController.class).getPlaces()).withRel("Lista de lugares"));
+    //     return ResponseEntity.status(HttpStatus.OK).body(placeO.get());
+    // }
 
-    @GetMapping("/lugares/{id}")
-    public ResponseEntity<Object> getPlaceById(@PathVariable(value = "id") UUID id) {
-        Optional<Place> placeO = placeService.getPlaceById(id);
-        if(placeO.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lugar não encontrado");
-        }
-        placeO.get().add(linkTo(methodOn(PlaceController.class).getPlaces()).withRel("Lista de lugares"));
-        return ResponseEntity.status(HttpStatus.OK).body(placeO.get());
+    @GetMapping("/lugares/{id}") // Assim fica melhor ou o de cima ainda eh melhor?
+    public ResponseEntity<Place> getPlaceById(@PathVariable(value = "id") UUID id) {
+        Place place = placeService.getPlaceById(id);
+        place.add(linkTo(methodOn(PlaceController.class).getPlaces()).withRel("Lista de lugares"));
+        return ResponseEntity.status(HttpStatus.OK).body(place);
     }
 
     @GetMapping("/lugares/nome/{name}")
-    public ResponseEntity<Object> getPlaceByName(@PathVariable(value="name") String name) {
+    public ResponseEntity<Object> getPlaceByName(@PathVariable(value = "name") String name) {
         Optional<Place> placeO = placeService.getPlaceByName(name);
-        if(placeO.isEmpty()) {
+        if (placeO.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lugar não encontrado para o nome: " + name);
         }
         placeO.get().add(linkTo(methodOn(PlaceController.class).getPlaces()).withRel("Lista de lugares"));
         return ResponseEntity.status(HttpStatus.OK).body(placeO);
     }
 
-    @PutMapping("/lugares/{id}")
-    public ResponseEntity<Object> editPlace(
-        @PathVariable(value = "id") UUID id,
-        @RequestBody @Valid PlaceRecordDto placeRecordDto
-    ) {
-        Optional<Place> placeO = placeService.getPlaceById(id);
-        if(placeO.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lugar não encontrado para o id: " + id);
-        }
-        Place editedPlace = placeService.editPlace(placeRecordDto, placeO.get());
-        return ResponseEntity.status(HttpStatus.OK).body(editedPlace);
-    }
+    // @PutMapping("/lugares/{id}")
+    // public ResponseEntity<Object> editPlace(
+    //         @PathVariable(value = "id") UUID id,
+    //         @RequestBody @Valid PlaceRecordDto placeRecordDto) {
+    //     Optional<Place> placeO = placeService.getPlaceById(id);
+    //     if (placeO.isEmpty()) {
+    //         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lugar não encontrado para o id: " + id);
+    //     }
+    //     Place editedPlace = placeService.editPlace(placeRecordDto, placeO.get());
+    //     return ResponseEntity.status(HttpStatus.OK).body(editedPlace);
+    // }
 
-    @DeleteMapping("/lugares/{id}")
-    public ResponseEntity<Object> deletePlaceById(
-        @PathVariable(value = "id")
-        UUID id
-    ) {
-        Optional<Place> place = placeService.getPlaceById(id);
-        if(place.isEmpty())
-           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
-        return ResponseEntity.status(HttpStatus.OK).body(place.get() + "Product deleted successfully.");
-    }
-
-    
-
-    
-    
+    // @DeleteMapping("/lugares/{id}")
+    // public ResponseEntity<Object> deletePlaceById(
+    //         @PathVariable(value = "id") UUID id) {
+    //     Optional<Place> place = placeService.getPlaceById(id);
+    //     if (place.isEmpty())
+    //         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
+    //     return ResponseEntity.status(HttpStatus.OK).body(place.get() + "Product deleted successfully.");
+    // }
 
 }

@@ -10,6 +10,7 @@ import br.com.jonascamargo.placesmanager.infrastructure.exception.customExceptio
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+    
     @ExceptionHandler(PlaceNotFoundException.class)
     private ResponseEntity<String> placeNotFoundHandler(PlaceNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Place not found.");
