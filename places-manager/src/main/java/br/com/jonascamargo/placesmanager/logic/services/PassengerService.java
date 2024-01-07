@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.github.slugify.Slugify;
 
 import br.com.jonascamargo.placesmanager.infrastructure.dtos.PassengerRecordDto;
+import br.com.jonascamargo.placesmanager.infrastructure.exception.customExceptions.PassengerNotFoundException;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Passenger;
 import br.com.jonascamargo.placesmanager.infrastructure.repositories.PassengerRepository;
 
@@ -22,8 +23,7 @@ public class PassengerService {
         this.passengerRepository = passengerRepository;
         this.slug = Slugify.builder().build();
     }
-
-    
+ 
     public Passenger createPassenger(PassengerRecordDto passengerRecordDto) {
         Passenger passenger = new Passenger();
         BeanUtils.copyProperties(passengerRecordDto, passenger);
@@ -32,14 +32,12 @@ public class PassengerService {
         
     }
 
-   
-
     public List<Passenger> getPassengers() {
         return passengerRepository.findAll();
     } 
 
-    public Optional<Passenger> getPassengerById(UUID id) {
-        return passengerRepository.findById(id);
+    public Passenger getPassengerById(UUID id) {
+        return passengerRepository.findById(id).orElseThrow(PassengerNotFoundException::new);
     }
 
     

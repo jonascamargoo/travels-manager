@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,16 +40,19 @@ public class PassengerController {
         List<Passenger> passengers = passengerService.getPassengers();
         return ResponseEntity.status(HttpStatus.OK).body(passengers);
     }
+    
 
     @GetMapping("/passageiros/{id}")
     public ResponseEntity<Object> getPassengerById(@PathVariable(value = "id") UUID id) {
-        Optional<Passenger> passenger = passengerService.getPassengerById(id);
-        if(passenger.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Passageiro não encontrado");
-        }
-        passenger.get().add(linkTo(methodOn(PassengerController.class).getPassengers()).withRel("Lista de passageiros"));
-        return ResponseEntity.status(HttpStatus.OK).body(passenger.get());
+        Passenger passenger = passengerService.getPassengerById(id);
+        passenger.add(linkTo(methodOn(PassengerController.class).getPassengers()).withRel("Lista de passageiros"));
+        return ResponseEntity.status(HttpStatus.OK).body(passenger);
     }
+
+    // @PutMapping("/passageiros/{id}")
+    // public ResponseEntity<Object> updatePassangerById(@PathVariable(value = "id") UUID id) {
+
+    // }
 
     
 

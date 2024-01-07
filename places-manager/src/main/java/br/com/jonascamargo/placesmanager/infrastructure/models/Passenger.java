@@ -27,6 +27,14 @@ public class Passenger extends RepresentationModel<Passenger> implements Seriali
     private String email;
     private String phoneNumber;
     private String slug;
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
+    public UUID getIdPassenger() {
+        return idPassenger;
+    }
     
     public String getName() {
         return name;
