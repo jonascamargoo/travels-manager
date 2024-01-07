@@ -40,13 +40,11 @@ public class PlaceService {
     }
 
     public Place getPlaceById(UUID id) {
-        return placeRepository.findById(id).orElseThrow(PlaceNotFoundException::new);
-        
-        
+        return placeRepository.findById(id).orElseThrow(PlaceNotFoundException::new);   
     }
 
-    public Optional<Place> getPlaceByName(String name) {
-        return placeRepository.findOneByName(name);
+    public Place getPlaceByName(String name) {
+        return placeRepository.findOneByName(name).orElseThrow(PlaceNotFoundException::new);
     }
 
     public List<Place> getPlacesByName(String name) {
