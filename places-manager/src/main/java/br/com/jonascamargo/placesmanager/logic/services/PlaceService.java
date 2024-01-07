@@ -53,7 +53,7 @@ public class PlaceService {
         return placeRepository.findListByName(name);
     }
 
-    public Place editPlace(PlaceRecordDto placeRecordDto, Place place) {
+    public Place updatePlace(PlaceRecordDto placeRecordDto, Place place) {
         BeanUtils.copyProperties(placeRecordDto, place);
         return placeRepository.save(place);
     }
