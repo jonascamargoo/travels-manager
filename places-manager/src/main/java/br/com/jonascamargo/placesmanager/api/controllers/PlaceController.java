@@ -1,7 +1,6 @@
 package br.com.jonascamargo.placesmanager.api.controllers;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.http.HttpStatus;

@@ -8,10 +8,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import br.com.jonascamargo.placesmanager.infrastructure.exception.customExceptions.PassengerNotFoundException;
 import br.com.jonascamargo.placesmanager.infrastructure.exception.customExceptions.PlaceNotFoundException;
+import br.com.jonascamargo.placesmanager.infrastructure.exception.customExceptions.TicketNotFoundException;
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
-    
+
     @ExceptionHandler(PlaceNotFoundException.class)
     private ResponseEntity<String> placeNotFoundHandler(PlaceNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Place not found.");
@@ -21,4 +22,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<String> passengerNotFoundHandler(PassengerNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Passenger not found");
     }
+
+    @ExceptionHandler(TicketNotFoundException.class)
+    private ResponseEntity<String> ticketNotFoundHandler(TicketNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ticket not found");
+    }
+
 }
