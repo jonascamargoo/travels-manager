@@ -67,8 +67,8 @@ public class PlaceController {
     public ResponseEntity<Object> updatePlace(
             @PathVariable(value = "id") UUID id,
             @RequestBody @Valid PlaceRecordDto placeRecordDto) {
-        Place updateedPlace = placeService.updatePlace(placeRecordDto, placeService.getPlaceById(id));
-        return ResponseEntity.status(HttpStatus.OK).body(updateedPlace);
+        Place updatedPlace = placeService.updatePlace(placeRecordDto, placeService.getPlaceById(id));
+        return ResponseEntity.status(HttpStatus.OK).body(updatedPlace);
     }
 
     // @DeleteMapping("/lugares/{id}")

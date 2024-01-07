@@ -49,12 +49,14 @@ public class PassengerController {
         return ResponseEntity.status(HttpStatus.OK).body(passenger);
     }
 
-    // @PutMapping("/passageiros/{id}")
-    // public ResponseEntity<Object> updatePassangerById(@PathVariable(value = "id") UUID id) {
+    @PutMapping("/passageiros/{id}")
+    public ResponseEntity<Object> updatePassenger(
+        @PathVariable(value = "id") UUID id,
+        @RequestBody @Valid PassengerRecordDto passengerRecordDto) {
+        Passenger updatedPassenger = passengerService.updatePassenger(passengerRecordDto, passengerService.getPassengerById(id));
+        return ResponseEntity.status(HttpStatus.OK).body(updatedPassenger);
+    }
 
-    // }
-
-    
 
 
 }

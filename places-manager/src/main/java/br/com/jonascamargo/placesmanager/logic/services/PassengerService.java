@@ -23,23 +23,25 @@ public class PassengerService {
         this.passengerRepository = passengerRepository;
         this.slug = Slugify.builder().build();
     }
- 
+
     public Passenger createPassenger(PassengerRecordDto passengerRecordDto) {
         Passenger passenger = new Passenger();
         BeanUtils.copyProperties(passengerRecordDto, passenger);
         passenger.setSlug(slug.slugify(passengerRecordDto.name()));
         return passengerRepository.save(passenger);
-        
     }
 
     public List<Passenger> getPassengers() {
         return passengerRepository.findAll();
-    } 
+    }
 
     public Passenger getPassengerById(UUID id) {
         return passengerRepository.findById(id).orElseThrow(PassengerNotFoundException::new);
     }
 
-    
+    public Passenger updatePassenger(PassengerRecordDto passengerRecordDto, Passenger passenger) {
+        BeanUtils.copyProperties(passengerRecordDto, passenger);
+        return passengerRepository.save(passenger);
+    }
 
 }
