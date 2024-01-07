@@ -34,7 +34,7 @@ public class PlaceServiceTest {
     @DisplayName("Should create a place successfully when everything is ok")
     void createPlace() {
         // Arrange
-        PlaceRecordDto placeRecordDto = new PlaceRecordDto("Test Place", "Test City", "Test State", null, null, null);
+        PlaceRecordDto placeRecordDto = new PlaceRecordDto("Test Place", null, null, null);
         // Mocking behavior
         when(placeRepository.save(any())).thenReturn(new Place());
         // Act

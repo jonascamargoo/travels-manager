@@ -27,10 +27,8 @@ public class Place extends RepresentationModel<Place> implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private UUID idProduct;
+    private UUID idPlace;
     private String name;
-    private String city;
-    private String state;
     private String slug;
     // preciso fazer o mapeamento
     //private List<Ticket> ticketList;
@@ -44,12 +42,12 @@ public class Place extends RepresentationModel<Place> implements Serializable {
         return serialVersionUID;
     }
 
-    public UUID getIdProduct() {
-        return idProduct;
+    public UUID getIdPlace() {
+        return idPlace;
     }
 
-    public void setIdProduct(UUID idProduct) {
-        this.idProduct = idProduct;
+    public void setIdPlace(UUID idPlace) {
+        this.idPlace = idPlace;
     }
 
     public String getName() {
@@ -58,22 +56,6 @@ public class Place extends RepresentationModel<Place> implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 
     public LocalDateTime getCreatedAt() {
