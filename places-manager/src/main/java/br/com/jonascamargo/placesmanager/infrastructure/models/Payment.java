@@ -3,6 +3,7 @@ package br.com.jonascamargo.placesmanager.infrastructure.models;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import org.springframework.hateoas.RepresentationModel;
 
@@ -19,9 +20,9 @@ import jakarta.persistence.Table;
 public class Payment extends RepresentationModel<Payment> implements Serializable {
     private static final long serialVersionUID = 1L;
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID idPayment;
     private String description;
     private BigDecimal amount;
     private PaymentStatus paymentStatus;

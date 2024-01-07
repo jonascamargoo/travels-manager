@@ -3,6 +3,7 @@ package br.com.jonascamargo.placesmanager.infrastructure.models;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.hateoas.RepresentationModel;
@@ -19,9 +20,11 @@ import jakarta.persistence.Table;
 @Table(name = "TB TICKETS")
 @EntityListeners(AuditingEntityListener.class)
 public class Ticket extends RepresentationModel<Ticket> implements Serializable {
+    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    private UUID idTicket;
     private String passengerName;
     private Place source;
     private Place destination;

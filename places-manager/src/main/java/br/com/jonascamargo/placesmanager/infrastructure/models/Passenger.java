@@ -1,6 +1,7 @@
 package br.com.jonascamargo.placesmanager.infrastructure.models;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.hateoas.RepresentationModel;
@@ -16,13 +17,15 @@ import jakarta.persistence.Table;
 @Table(name = "TB PASSENGERS")
 @EntityListeners(AuditingEntityListener.class)
 public class Passenger extends RepresentationModel<Passenger> implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    private UUID idPassenger;
     private String name;
     private int age;
     private String email;
-    private String phoneNumber; //create a validator
+    private String phoneNumber;
     private String slug;
     
     public String getName() {
