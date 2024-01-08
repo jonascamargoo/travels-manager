@@ -30,7 +30,7 @@ public class Place extends RepresentationModel<Place> implements Serializable {
     private UUID idPlace;
     private String name;
     private String slug;
-    // preciso fazer o mapeamento
+    // preciso fazer o mapeamento one-to-many?
     //private List<Ticket> ticketList;
 
     @CreatedDate

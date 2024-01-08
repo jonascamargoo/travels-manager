@@ -1,4 +1,4 @@
-package br.com.jonascamargo.placesmanager.infrastructure.exception.customExceptions;
+package br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions;
 
 public class TicketNotFoundException extends RuntimeException {
     public TicketNotFoundException() {

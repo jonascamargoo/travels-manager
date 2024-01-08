@@ -32,6 +32,14 @@ public class Ticket extends RepresentationModel<Ticket> implements Serializable 
     private BigDecimal price;
     private LocalDateTime purchaseTime;
     private String slug;
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
+    public UUID getIdTicket() {
+        return idTicket;
+    }
     
     public String getPassengerName() {
         return passengerName;

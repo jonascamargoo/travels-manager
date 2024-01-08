@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.github.slugify.Slugify;
 
 import br.com.jonascamargo.placesmanager.infrastructure.dtos.PassengerRecordDto;
-import br.com.jonascamargo.placesmanager.infrastructure.exception.customExceptions.PassengerNotFoundException;
+import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.PassengerNotFoundException;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Passenger;
 import br.com.jonascamargo.placesmanager.infrastructure.repositories.PassengerRepository;
 

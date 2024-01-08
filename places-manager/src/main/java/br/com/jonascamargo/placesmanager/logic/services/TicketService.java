@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.github.slugify.Slugify;
 
 import br.com.jonascamargo.placesmanager.infrastructure.dtos.TicketRecordDto;
+import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.InvalidTicketTimeException;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Ticket;
 import br.com.jonascamargo.placesmanager.infrastructure.repositories.TicketRepository;
 
@@ -15,21 +16,21 @@ import br.com.jonascamargo.placesmanager.infrastructure.repositories.TicketRepos
 public class TicketService {
     private final TicketRepository ticketRepository;
     private Slugify slug;
+
     public TicketService(TicketRepository ticketRepository) {
         this.ticketRepository = ticketRepository;
         this.slug = Slugify.builder().build();
     }
 
     public Ticket createTicket(TicketRecordDto ticketRecordDto) {
-        if(!isTicketTimeStillValid(ticketRecordDto)) {
-            throw new IllegalArgumentException("Ticket time is no longer valid.");
+        if (!isTicketTimeStillValid(ticketRecordDto)) {
+            throw new InvalidTicketTimeException();
         }
+        Ticket ticket = new Ticket();
+        BeanUtils.copyProperties(ticketRecordDto, ticket);
+        ticket.setSlug(slug.slugify(ticketRecordDto.destination()));
+        return ticketRepository.save(ticket);
 
-        Ticket ticketO = new Ticket();
-        BeanUtils.copyProperties(ticketRecordDto, ticketO);
-        ticketO.setSlug(slug.slugify(ticketRecordDto.destination()));
-        return ticketRepository.save(ticketO);
-        
     }
 
     // the purchase is only allowed 30 minutes prior to the departure time
@@ -37,9 +38,5 @@ public class TicketService {
         Duration duration = Duration.between(ticketRecordDto.departureTime(), ticketRecordDto.purchaseTime());
         return duration.toMinutes() >= 30;
     }
-    
-    
+
 }
-
-
-
