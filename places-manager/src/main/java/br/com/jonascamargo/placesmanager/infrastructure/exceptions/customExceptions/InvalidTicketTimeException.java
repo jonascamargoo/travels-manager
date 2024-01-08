@@ -2,7 +2,7 @@ package br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExcept
 
 public class InvalidTicketTimeException extends RuntimeException {
     public InvalidTicketTimeException() {
-        super("Compra fora do prazo. Ticket Invalido");
+        super("Emissão fora do prazo. Ticket Invalido");
     }
 
     public InvalidTicketTimeException(String message) {

@@ -46,7 +46,7 @@ public class TicketService {
 
     // the purchase is only allowed 30 minutes prior to the departure time
     public boolean isTicketTimeStillValid(TicketRecordDto ticketRecordDto) {
-        Duration duration = Duration.between(ticketRecordDto.departureTime(), ticketRecordDto.purchaseTime());
+        Duration duration = Duration.between(ticketRecordDto.purchaseTime(), ticketRecordDto.departureTime());
         return duration.toMinutes() >= 30;
     }
 
