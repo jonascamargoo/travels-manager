@@ -1,7 +1,6 @@
 package br.com.jonascamargo.placesmanager.logic.services;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
@@ -13,8 +12,6 @@ import br.com.jonascamargo.placesmanager.infrastructure.dtos.PlaceRecordDto;
 import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.PlaceNotFoundException;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Place;
 import br.com.jonascamargo.placesmanager.infrastructure.repositories.PlaceRepository;
-
-//Todos os casos do Optional estarem vazios serao tratados na class de excecoes que sera criada junto aos teste
 
 @Service
 public class PlaceService {

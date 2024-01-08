@@ -13,25 +13,29 @@ import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExcepti
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
-
     @ExceptionHandler(PlaceNotFoundException.class)
-    private ResponseEntity<String> placeNotFoundHandler(PlaceNotFoundException exception) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Place not found.");
+    private ResponseEntity<RestErrorMessage> placeNotFoundHandler(PlaceNotFoundException exception) {
+        RestErrorMessage threatResponse = new RestErrorMessage(HttpStatus.NOT_FOUND, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(threatResponse);
     }
 
     @ExceptionHandler(PassengerNotFoundException.class)
-    private ResponseEntity<String> passengerNotFoundHandler(PassengerNotFoundException exception) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Passenger not found");
+    private ResponseEntity<RestErrorMessage> passengerNotFoundHandler(PassengerNotFoundException exception) {
+        RestErrorMessage threatResponse = new RestErrorMessage(HttpStatus.NOT_FOUND, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(threatResponse);
     }
 
     @ExceptionHandler(TicketNotFoundException.class)
-    private ResponseEntity<String> ticketNotFoundHandler(TicketNotFoundException exception) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ticket not found");
+    private ResponseEntity<RestErrorMessage> ticketNotFoundHandler(TicketNotFoundException exception) {
+        RestErrorMessage threatResponse = new RestErrorMessage(HttpStatus.NOT_FOUND, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(threatResponse);
     }
 
     @ExceptionHandler(InvalidTicketTimeException.class)
-    private ResponseEntity<String> invalidTicketTimeHandler(InvalidTicketTimeException exception) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Invalid ticket time");
+    private ResponseEntity<RestErrorMessage> invalidTicketTimeHandler(InvalidTicketTimeException exception) {
+        RestErrorMessage threatResponse = new RestErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR,
+                exception.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(threatResponse);
     }
 
 }
