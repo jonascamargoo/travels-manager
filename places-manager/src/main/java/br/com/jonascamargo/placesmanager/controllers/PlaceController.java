@@ -1,4 +1,4 @@
-package br.com.jonascamargo.placesmanager.api.controllers;
+package br.com.jonascamargo.placesmanager.controllers;
 
 import java.util.List;
 import java.util.UUID;
@@ -58,26 +58,26 @@ public class PlaceController {
     }
 
     @GetMapping("/nome/{name}")
-    public ResponseEntity<Object> getPlaceByName(@PathVariable(value = "name") String name) {
+    public ResponseEntity<Place> getPlaceByName(@PathVariable(value = "name") String name) {
         Place place = placeService.getPlaceByName(name);
         place.add(linkTo(methodOn(PlaceController.class).getPlaces()).withRel("Lista de lugares"));
         return ResponseEntity.status(HttpStatus.OK).body(place);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updatePlace(
+    public ResponseEntity<Place> updatePlace(
             @PathVariable(value = "id") UUID id,
             @RequestBody @Valid PlaceRecordDto placeRecordDto) {
         Place updatedPlace = placeService.updatePlace(placeRecordDto, placeService.getPlaceById(id));
         return ResponseEntity.status(HttpStatus.OK).body(updatedPlace);
     }
 
-    // @DeleteMapping("/{id}")
-    // public ResponseEntity<Object> deletePlaceById(@PathVariable(value = "id") UUID id) {
-        
-    // }
-    
-    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deletePlaceById(@PathVariable(value = "id") UUID id) {
+        Place place = placeService.getPlaceById(id);
+        placeService.deletePlaceById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(place);
+    }
 
     // @DeleteMapping("/lugares/{id}")
     // public ResponseEntity<Object> deletePlaceById(

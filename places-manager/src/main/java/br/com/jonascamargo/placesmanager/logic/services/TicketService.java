@@ -11,6 +11,7 @@ import com.github.slugify.Slugify;
 
 import br.com.jonascamargo.placesmanager.infrastructure.dtos.TicketRecordDto;
 import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.InvalidTicketTimeException;
+import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.PlaceNotFoundException;
 import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.TicketNotFoundException;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Ticket;
 import br.com.jonascamargo.placesmanager.infrastructure.repositories.TicketRepository;
@@ -18,10 +19,12 @@ import br.com.jonascamargo.placesmanager.infrastructure.repositories.TicketRepos
 @Service
 public class TicketService {
     private final TicketRepository ticketRepository;
+    private final PlaceService placeService;
     private Slugify slug;
 
-    public TicketService(TicketRepository ticketRepository) {
+    public TicketService(TicketRepository ticketRepository, PlaceService placeService) {
         this.ticketRepository = ticketRepository;
+        this.placeService = placeService;
         this.slug = Slugify.builder().build();
     }
 
@@ -29,6 +32,14 @@ public class TicketService {
         if (!isTicketTimeStillValid(ticketRecordDto)) {
             throw new InvalidTicketTimeException();
         }
+        if(
+            // validando se existe o lugar para emitir o ticket
+            !placeService.existsByName(ticketRecordDto.source()) &&
+            !placeService.existsByName(ticketRecordDto.destination())
+        ) {
+            throw new PlaceNotFoundException();
+        }
+
         Ticket ticket = new Ticket();
         BeanUtils.copyProperties(ticketRecordDto, ticket);
         ticket.setSlug(slug.slugify(ticketRecordDto.destination()));

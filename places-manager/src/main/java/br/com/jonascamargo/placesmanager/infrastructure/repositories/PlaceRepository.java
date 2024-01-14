@@ -12,7 +12,7 @@ import org.springframework.data.repository.query.Param;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Place;
 
 public interface PlaceRepository extends JpaRepository<Place, UUID>{
-    Optional<Place> findOneByName(String name);
+    Optional<Place> findByName(String name);
     List<Place> findListByName(String name);
     @Query("FROM Place p WHERE p.name = :name")
     List<Place> findPlacesFilteredByName(@Param("name") String name);

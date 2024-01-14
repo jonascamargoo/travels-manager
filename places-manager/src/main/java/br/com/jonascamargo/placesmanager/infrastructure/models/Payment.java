@@ -16,7 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "TB Payments")
+@Table(name = "TB_Payments")
 public class Payment extends RepresentationModel<Payment> implements Serializable {
     private static final long serialVersionUID = 1L;
 

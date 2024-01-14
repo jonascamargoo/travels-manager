@@ -18,11 +18,11 @@ public class PlaceService {
     private final PlaceRepository placeRepository;
     private Slugify slug;
 
-    //injecao via constructor
+    // injecao via constructor
     public PlaceService(PlaceRepository placeRepository) {
         this.placeRepository = placeRepository;
         this.slug = Slugify.builder().build();
-        
+
     }
 
     public Place createPlace(PlaceRecordDto placeRecordDto) {
@@ -37,15 +37,20 @@ public class PlaceService {
     }
 
     public Place getPlaceById(UUID id) {
-        return placeRepository.findById(id).orElseThrow(PlaceNotFoundException::new);   
+        return placeRepository.findById(id).orElseThrow(PlaceNotFoundException::new);
     }
 
     public Place getPlaceByName(String name) {
-        return placeRepository.findOneByName(name).orElseThrow(PlaceNotFoundException::new);
+        return placeRepository.findByName(name).orElseThrow(PlaceNotFoundException::new);
     }
 
     public List<Place> getPlacesByName(String name) {
         return placeRepository.findListByName(name);
+    }
+
+    public boolean existsByName(String name) {
+        return getPlaceByName(name) != null;
+        
     }
 
     public Place updatePlace(PlaceRecordDto placeRecordDto, Place place) {
@@ -53,17 +58,21 @@ public class PlaceService {
         return placeRepository.save(place);
     }
 
-    // public void deletePlaceById(UUID id) {
-    //     Optional<Place> place = placeRepository.findById(id);
-    //     if(!isAvailableToDelete(place.get())) {
-    //         throw new IllegalArgumentException("Deletion failed. There is one or more tickets associated with this place.");
-    //     }
-    //     placeRepository.deleteById(id);
-    // }
+    // CRIAR UMA CUSTOM EXCEPTION
+    public void deletePlaceById(UUID id) {
+        Place place = placeRepository.findById(id).orElseThrow(PlaceNotFoundException::new);
+        if (!isAvailableToDelete(place)) {
+            throw new IllegalArgumentException(
+                    "Deletion failed. There is one or more tickets associated with this place.");
+        }
+        placeRepository.deleteById(id);
 
-    // public boolean isAvailableToDelete(Place place) {
-    //     return place.getTicketList().isEmpty();
-    // }
-    
+    }
+
+    // analisa se ha algum ticket associado antes de remover
+    public boolean isAvailableToDelete(Place place) {
+        return  place.getSourceTickets().isEmpty() &&
+                place.getDestinationTickets().isEmpty();
+    }
+
 }
-

@@ -14,7 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "TB PASSENGERS")
+@Table(name = "TB_PASSENGERS")
 @EntityListeners(AuditingEntityListener.class)
 public class Passenger extends RepresentationModel<Passenger> implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -1,6 +1,5 @@
 package br.com.jonascamargo.placesmanager.infrastructure.models;
 
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,22 +15,26 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-
 @Entity
-@Table(name = "TB PLACES")
+@Table(name = "TB_PLACES")
 @EntityListeners(AuditingEntityListener.class)
 public class Place extends RepresentationModel<Place> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idPlace;
     private String name;
     private String slug;
-    // preciso fazer o mapeamento one-to-many?
-    //private List<Ticket> ticketList;
+
+    @OneToMany(mappedBy = "source")
+    private List<Ticket> sourceTickets;
+
+    @OneToMany(mappedBy = "destination")
+    private List<Ticket> destinationTickets;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -82,14 +85,12 @@ public class Place extends RepresentationModel<Place> implements Serializable {
         this.slug = slug;
     }
 
-    // public List<Ticket> getTicketList() {
-    //     return ticketList;
-    // }
+    public List<Ticket> getSourceTickets() {
+        return sourceTickets;
+    }
 
-    // public void setTicketList(List<Ticket> ticketList) {
-    //     this.ticketList = ticketList;
-    // }
-
-    
+    public List<Ticket> getDestinationTickets() {
+        return destinationTickets;
+    }
 
 }

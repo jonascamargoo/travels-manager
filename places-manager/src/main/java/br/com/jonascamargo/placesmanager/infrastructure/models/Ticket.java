@@ -13,11 +13,13 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 
 @Entity
-@Table(name = "TB TICKETS")
+@Table(name = "TB_TICKETS")
 @EntityListeners(AuditingEntityListener.class)
 public class Ticket extends RepresentationModel<Ticket> implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -26,8 +28,14 @@ public class Ticket extends RepresentationModel<Ticket> implements Serializable 
     @GeneratedValue(strategy= GenerationType.AUTO)
     private UUID idTicket;
     private String passengerName;
+
+    @ManyToOne
+    @JoinColumn(name = "source")
     private Place source;
+    @ManyToOne
+    @JoinColumn(name = "destination")
     private Place destination;
+    
     private LocalDateTime departureTime;
     private BigDecimal price;
     private LocalDateTime purchaseTime;

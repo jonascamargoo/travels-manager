@@ -1,4 +1,4 @@
-package br.com.jonascamargo.placesmanager.api.controllers;
+package br.com.jonascamargo.placesmanager.controllers;
 
 import java.util.List;
 import java.util.UUID;
