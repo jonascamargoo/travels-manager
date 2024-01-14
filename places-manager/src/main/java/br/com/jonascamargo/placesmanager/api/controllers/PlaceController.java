@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.jonascamargo.placesmanager.infrastructure.dtos.PlaceRecordDto;
@@ -22,6 +23,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
+@RequestMapping("/api/lugares")
 public class PlaceController {
 
     private final PlaceService placeService;
@@ -30,39 +32,39 @@ public class PlaceController {
         this.placeService = placeService;
     }
 
-    @PostMapping("/lugares")
+    @PostMapping("/")
     public ResponseEntity<Place> createPlace(@RequestBody @Valid PlaceRecordDto placeRecordDto) {
         Place createdPlace = placeService.createPlace(placeRecordDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPlace);
     }
 
-    @GetMapping("/lugares")
+    @GetMapping("/")
     public ResponseEntity<List<Place>> getPlaces() {
         List<Place> places = placeService.getPlaces();
         return ResponseEntity.status(HttpStatus.OK).body(places);
     }
 
-    @GetMapping("lugares/lista-nome/{name}")
+    @GetMapping("/lista-nome/{name}")
     public ResponseEntity<List<Place>> getPlacesByName(@PathVariable(value = "name") String name) {
         List<Place> places = placeService.getPlacesByName(name);
         return ResponseEntity.status(HttpStatus.OK).body(places);
     }
 
-    @GetMapping("/lugares/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Place> getPlaceById(@PathVariable(value = "id") UUID id) {
         Place place = placeService.getPlaceById(id);
         place.add(linkTo(methodOn(PlaceController.class).getPlaces()).withRel("Lista de lugares"));
         return ResponseEntity.status(HttpStatus.OK).body(place);
     }
 
-    @GetMapping("/lugares/nome/{name}")
+    @GetMapping("/nome/{name}")
     public ResponseEntity<Object> getPlaceByName(@PathVariable(value = "name") String name) {
         Place place = placeService.getPlaceByName(name);
         place.add(linkTo(methodOn(PlaceController.class).getPlaces()).withRel("Lista de lugares"));
         return ResponseEntity.status(HttpStatus.OK).body(place);
     }
 
-    @PutMapping("/lugares/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Object> updatePlace(
             @PathVariable(value = "id") UUID id,
             @RequestBody @Valid PlaceRecordDto placeRecordDto) {
@@ -70,7 +72,7 @@ public class PlaceController {
         return ResponseEntity.status(HttpStatus.OK).body(updatedPlace);
     }
 
-    // @DeleteMapping("/lugares/{id}")
+    // @DeleteMapping("/{id}")
     // public ResponseEntity<Object> deletePlaceById(@PathVariable(value = "id") UUID id) {
         
     // }
