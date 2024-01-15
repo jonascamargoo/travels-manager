@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.AssociatedTicketsException;
 import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.InvalidTicketTimeException;
 import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.PassengerNotFoundException;
 import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.PlaceNotFoundException;
@@ -36,6 +37,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         RestErrorMessage threatResponse = new RestErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR,
                 exception.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(threatResponse);
+    }
+
+    @ExceptionHandler(AssociatedTicketsException.class)
+    private ResponseEntity<RestErrorMessage> associatedTicketsHandler(AssociatedTicketsException exception) {
+        RestErrorMessage threatResponse = new RestErrorMessage(HttpStatus.CONFLICT, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(threatResponse);
     }
 
 }
