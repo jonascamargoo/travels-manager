@@ -27,13 +27,15 @@ public class Ticket extends RepresentationModel<Ticket> implements Serializable 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private UUID idTicket;
-    private String passengerName;
+
+    // o nome deve ser atrelado durante o pagamento, nao na emissao
+    // private String passengerName;
 
     @ManyToOne
-    @JoinColumn(name = "source")
+    @JoinColumn(name = "source", nullable = false)
     private Place source;
     @ManyToOne
-    @JoinColumn(name = "destination")
+    @JoinColumn(name = "destination", nullable = false)
     private Place destination;
     
     private LocalDateTime departureTime;
@@ -49,12 +51,6 @@ public class Ticket extends RepresentationModel<Ticket> implements Serializable 
         return idTicket;
     }
     
-    public String getPassengerName() {
-        return passengerName;
-    }
-    public void setPassengerName(String passengerName) {
-        this.passengerName = passengerName;
-    }
     public Place getSource() {
         return source;
     }

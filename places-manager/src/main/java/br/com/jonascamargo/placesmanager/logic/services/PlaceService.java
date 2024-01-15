@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.github.slugify.Slugify;
 
 import br.com.jonascamargo.placesmanager.infrastructure.dtos.PlaceRecordDto;
+import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.AssociatedTicketsException;
 import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.PlaceNotFoundException;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Place;
 import br.com.jonascamargo.placesmanager.infrastructure.repositories.PlaceRepository;
@@ -18,7 +19,6 @@ public class PlaceService {
     private final PlaceRepository placeRepository;
     private Slugify slug;
 
-    // injecao via constructor
     public PlaceService(PlaceRepository placeRepository) {
         this.placeRepository = placeRepository;
         this.slug = Slugify.builder().build();
@@ -62,8 +62,7 @@ public class PlaceService {
     public void deletePlaceById(UUID id) {
         Place place = placeRepository.findById(id).orElseThrow(PlaceNotFoundException::new);
         if (!isAvailableToDelete(place)) {
-            throw new IllegalArgumentException(
-                    "Deletion failed. There is one or more tickets associated with this place.");
+            throw new AssociatedTicketsException("Associated place");
         }
         placeRepository.deleteById(id);
 

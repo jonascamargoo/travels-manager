@@ -12,6 +12,7 @@ import com.github.slugify.Slugify;
 import br.com.jonascamargo.placesmanager.infrastructure.dtos.TicketRecordDto;
 import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.InvalidTicketTimeException;
 import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.PlaceNotFoundException;
+import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.SourceEqualsDestinationException;
 import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.TicketNotFoundException;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Ticket;
 import br.com.jonascamargo.placesmanager.infrastructure.repositories.TicketRepository;
@@ -28,21 +29,28 @@ public class TicketService {
         this.slug = Slugify.builder().build();
     }
 
+  
     public Ticket createTicket(TicketRecordDto ticketRecordDto) {
         if (!isTicketTimeStillValid(ticketRecordDto)) {
             throw new InvalidTicketTimeException();
         }
+        if(ticketRecordDto.source().equals(ticketRecordDto.destination())) {
+            throw new SourceEqualsDestinationException();
+        }
         if(
-            // validando se existe o lugar para emitir o ticket
-            !placeService.existsByName(ticketRecordDto.source()) &&
+            !placeService.existsByName(ticketRecordDto.source()) ||
             !placeService.existsByName(ticketRecordDto.destination())
         ) {
             throw new PlaceNotFoundException();
         }
-
         Ticket ticket = new Ticket();
         BeanUtils.copyProperties(ticketRecordDto, ticket);
-        ticket.setSlug(slug.slugify(ticketRecordDto.destination()));
+
+        // ---------- N + 1 query error
+        ticket.setSource(placeService.getPlaceByName(ticketRecordDto.source()));
+        ticket.setDestination(placeService.getPlaceByName(ticketRecordDto.destination()));
+        // ----------
+        ticket.setSlug(slug.slugify(ticketRecordDto.source() + "-" + ticketRecordDto.destination()));
         return ticketRepository.save(ticket);
 
     }
@@ -60,5 +68,6 @@ public class TicketService {
         Duration duration = Duration.between(ticketRecordDto.purchaseTime(), ticketRecordDto.departureTime());
         return duration.toMinutes() >= 30;
     }
+
 
 }
