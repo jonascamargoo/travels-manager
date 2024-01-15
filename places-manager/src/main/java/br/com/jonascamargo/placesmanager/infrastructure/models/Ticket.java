@@ -8,6 +8,8 @@ import java.util.UUID;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.hateoas.RepresentationModel;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
@@ -31,11 +33,15 @@ public class Ticket extends RepresentationModel<Ticket> implements Serializable 
     // o nome deve ser atrelado durante o pagamento, nao na emissao
     // private String passengerName;
 
+    // E SE EU SALVAR O SOURCE E DESTINATION COMO STRING NO BANCO? BTW, LER O N + 1 DE QUALQUER FORMA
+
+
     @ManyToOne
-    @JoinColumn(name = "source", nullable = false)
+    @JoinColumn(name = "source_id", nullable = false)
     private Place source;
+
     @ManyToOne
-    @JoinColumn(name = "destination", nullable = false)
+    @JoinColumn(name = "destination_id", nullable = false)
     private Place destination;
     
     private LocalDateTime departureTime;

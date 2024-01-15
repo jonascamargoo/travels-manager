@@ -20,12 +20,12 @@ import br.com.jonascamargo.placesmanager.infrastructure.repositories.TicketRepos
 @Service
 public class TicketService {
     private final TicketRepository ticketRepository;
-    private final PlaceService placeService;
+    //private final PlaceService placeService;
     private Slugify slug;
 
     public TicketService(TicketRepository ticketRepository, PlaceService placeService) {
         this.ticketRepository = ticketRepository;
-        this.placeService = placeService;
+        //this.placeService = placeService;
         this.slug = Slugify.builder().build();
     }
 
@@ -43,13 +43,11 @@ public class TicketService {
         ) {
             throw new PlaceNotFoundException();
         }
+        
         Ticket ticket = new Ticket();
         BeanUtils.copyProperties(ticketRecordDto, ticket);
-
-        // ---------- N + 1 query error
         ticket.setSource(placeService.getPlaceByName(ticketRecordDto.source()));
         ticket.setDestination(placeService.getPlaceByName(ticketRecordDto.destination()));
-        // ----------
         ticket.setSlug(slug.slugify(ticketRecordDto.source() + "-" + ticketRecordDto.destination()));
         return ticketRepository.save(ticket);
 
@@ -67,6 +65,19 @@ public class TicketService {
     public boolean isTicketTimeStillValid(TicketRecordDto ticketRecordDto) {
         Duration duration = Duration.between(ticketRecordDto.purchaseTime(), ticketRecordDto.departureTime());
         return duration.toMinutes() >= 30;
+    }
+
+    public List<Ticket> getTicketsSourceByName(String placeName) {
+        return ticketRepository.findTicketsBySourceName(placeName);
+    }
+
+    public List<Ticket> getTicketsDestinationByName(String placeName) {
+        return ticketRepository.findTicketsByDestinationName(placeName);
+    }
+
+    public boolean hasAssociatedTicket(String placeName) {
+        return  getTicketsSourceByName(placeName).isEmpty() &&
+                getTicketsDestinationByName(placeName).isEmpty();
     }
 
 

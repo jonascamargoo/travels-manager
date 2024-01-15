@@ -1,6 +1,6 @@
 package br.com.jonascamargo.placesmanager.logic;
 
-// Luhn algorithm for credit card validation - it doesn't provide entire validation for credit card, just part of them.
+// Luhn algorithm for credit card validation - it doesn't provide entire validation for credit card, just part of them
 
 public class CreditCardValidation {
     public boolean isCreditCardValid(String cardNumber) {

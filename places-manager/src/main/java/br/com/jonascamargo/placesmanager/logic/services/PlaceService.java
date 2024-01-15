@@ -17,10 +17,12 @@ import br.com.jonascamargo.placesmanager.infrastructure.repositories.PlaceReposi
 @Service
 public class PlaceService {
     private final PlaceRepository placeRepository;
+    private final TicketService ticketService;
     private Slugify slug;
 
-    public PlaceService(PlaceRepository placeRepository) {
+    public PlaceService(PlaceRepository placeRepository, TicketService ticketService) {
         this.placeRepository = placeRepository;
+        this.ticketService = ticketService;
         this.slug = Slugify.builder().build();
 
     }
@@ -58,10 +60,10 @@ public class PlaceService {
         return placeRepository.save(place);
     }
 
-    // CRIAR UMA CUSTOM EXCEPTION
+
     public void deletePlaceById(UUID id) {
         Place place = placeRepository.findById(id).orElseThrow(PlaceNotFoundException::new);
-        if (!isAvailableToDelete(place)) {
+        if (!isAvailableToDelete(place.getName())) {
             throw new AssociatedTicketsException("Associated place");
         }
         placeRepository.deleteById(id);
@@ -69,9 +71,11 @@ public class PlaceService {
     }
 
     // analisa se ha algum ticket associado antes de remover
-    public boolean isAvailableToDelete(Place place) {
-        return  place.getSourceTickets().isEmpty() &&
-                place.getDestinationTickets().isEmpty();
+    public boolean isAvailableToDelete(String placeName) {
+        return ticketService.hasAssociatedTicket(placeName);
     }
+
+
+    
 
 }

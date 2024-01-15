@@ -2,7 +2,6 @@ package br.com.jonascamargo.placesmanager.infrastructure.models;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -15,7 +14,6 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -29,12 +27,6 @@ public class Place extends RepresentationModel<Place> implements Serializable {
     private UUID idPlace;
     private String name;
     private String slug;
-
-    @OneToMany(mappedBy = "source")
-    private List<Ticket> sourceTickets;
-
-    @OneToMany(mappedBy = "destination")
-    private List<Ticket> destinationTickets;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -83,14 +75,6 @@ public class Place extends RepresentationModel<Place> implements Serializable {
 
     public void setSlug(String slug) {
         this.slug = slug;
-    }
-
-    public List<Ticket> getSourceTickets() {
-        return sourceTickets;
-    }
-
-    public List<Ticket> getDestinationTickets() {
-        return destinationTickets;
     }
 
 }
