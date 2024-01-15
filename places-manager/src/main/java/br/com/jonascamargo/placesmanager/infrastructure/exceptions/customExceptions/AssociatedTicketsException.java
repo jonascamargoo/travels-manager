@@ -2,7 +2,7 @@ package br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExcept
 
 public class AssociatedTicketsException extends RuntimeException {
     public AssociatedTicketsException() {
-        super("Remoção falhou. Existem um ou mais tickets associados a este local.");
+        super("Remoção falhou. Existem um ou mais tickets associados a este local!");
     }
     
     public AssociatedTicketsException(String message) {

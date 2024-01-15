@@ -10,6 +10,7 @@ import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExcepti
 import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.InvalidTicketTimeException;
 import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.PassengerNotFoundException;
 import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.PlaceNotFoundException;
+import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.SourceEqualsDestinationException;
 import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.TicketNotFoundException;
 
 @ControllerAdvice
@@ -43,6 +44,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<RestErrorMessage> associatedTicketsHandler(AssociatedTicketsException exception) {
         RestErrorMessage threatResponse = new RestErrorMessage(HttpStatus.CONFLICT, exception.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(threatResponse);
+    }
+
+    @ExceptionHandler(SourceEqualsDestinationException.class)
+    private ResponseEntity<RestErrorMessage> sourceEqualsDestinationHandler(SourceEqualsDestinationException exception) {
+        RestErrorMessage threatResponse = new RestErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(threatResponse);
     }
 
 }
