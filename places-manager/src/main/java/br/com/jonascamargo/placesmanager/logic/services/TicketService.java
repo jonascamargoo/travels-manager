@@ -20,12 +20,12 @@ import br.com.jonascamargo.placesmanager.infrastructure.repositories.TicketRepos
 @Service
 public class TicketService {
     private final TicketRepository ticketRepository;
-    //private final PlaceService placeService;
+    private final PlaceService placeService;
     private Slugify slug;
 
     public TicketService(TicketRepository ticketRepository, PlaceService placeService) {
         this.ticketRepository = ticketRepository;
-        //this.placeService = placeService;
+        this.placeService = placeService;
         this.slug = Slugify.builder().build();
     }
 

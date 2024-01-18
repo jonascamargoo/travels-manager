@@ -17,12 +17,11 @@ import br.com.jonascamargo.placesmanager.infrastructure.repositories.PlaceReposi
 @Service
 public class PlaceService {
     private final PlaceRepository placeRepository;
-    private final TicketService ticketService;
+    private TicketService ticketService;
     private Slugify slug;
 
-    public PlaceService(PlaceRepository placeRepository, TicketService ticketService) {
+    public PlaceService(PlaceRepository placeRepository) {
         this.placeRepository = placeRepository;
-        this.ticketService = ticketService;
         this.slug = Slugify.builder().build();
 
     }
@@ -73,6 +72,11 @@ public class PlaceService {
     // analisa se ha algum ticket associado antes de remover
     public boolean isAvailableToDelete(String placeName) {
         return ticketService.hasAssociatedTicket(placeName);
+    }
+
+    // method injection
+    public void setTicketService(TicketService ticketService) {
+        this.ticketService = ticketService;
     }
 
 
