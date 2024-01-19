@@ -72,21 +72,10 @@ public class PlaceController {
         return ResponseEntity.status(HttpStatus.OK).body(updatedPlace);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deletePlaceById(@PathVariable(value = "id") UUID id) {
-        Place place = placeService.getPlaceById(id);
-        placeService.deletePlaceById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(place);
+    @DeleteMapping("/")
+    public ResponseEntity<Object> deleteAllPlaces() {
+        this.placeService.deletePlaces();
+        return ResponseEntity.status(HttpStatus.OK).body("All places deleted successfully");
     }
-
-    // @DeleteMapping("/lugares/{id}")
-    // public ResponseEntity<Object> deletePlaceById(
-    // @PathVariable(value = "id") UUID id) {
-    // Optional<Place> place = placeService.getPlaceById(id);
-    // if (place.isEmpty())
-    // return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
-    // return ResponseEntity.status(HttpStatus.OK).body(place.get() + "Product
-    // deleted successfully.");
-    // }
 
 }

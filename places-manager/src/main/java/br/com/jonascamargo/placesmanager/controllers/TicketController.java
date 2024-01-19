@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,6 +47,12 @@ public class TicketController {
         Ticket ticket = ticketService.getTicketById(id);
         ticket.add(linkTo(methodOn(TicketController.class).getTickets()).withRel("Lista de passagens"));
         return ResponseEntity.status(HttpStatus.OK).body(ticket);
+    }
+
+    @DeleteMapping("/")
+    public ResponseEntity<Object> deleteAllTickets() {
+        this.ticketService.deleteTickets();
+        return ResponseEntity.status(HttpStatus.OK).body("All tickets deleted successfully.");
     }
 
 }

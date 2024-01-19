@@ -80,5 +80,8 @@ public class TicketService {
                 getTicketsDestinationByName(placeName).isEmpty();
     }
 
+    public void deleteTickets() {
+        ticketRepository.deleteAll();
+    }
 
 }

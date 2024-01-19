@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.github.slugify.Slugify;
 
 import br.com.jonascamargo.placesmanager.infrastructure.dtos.PlaceRecordDto;
-import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.AssociatedTicketsException;
 import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.PlaceNotFoundException;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Place;
 import br.com.jonascamargo.placesmanager.infrastructure.repositories.PlaceRepository;
@@ -17,7 +16,6 @@ import br.com.jonascamargo.placesmanager.infrastructure.repositories.PlaceReposi
 @Service
 public class PlaceService {
     private final PlaceRepository placeRepository;
-    private TicketService ticketService;
     private Slugify slug;
 
     public PlaceService(PlaceRepository placeRepository) {
@@ -59,27 +57,8 @@ public class PlaceService {
         return placeRepository.save(place);
     }
 
-
-    public void deletePlaceById(UUID id) {
-        Place place = placeRepository.findById(id).orElseThrow(PlaceNotFoundException::new);
-        if (!isAvailableToDelete(place.getName())) {
-            throw new AssociatedTicketsException("Associated place");
-        }
-        placeRepository.deleteById(id);
-
+    public void deletePlaces() {
+        placeRepository.deleteAll();
     }
-
-    // analisa se ha algum ticket associado antes de remover
-    public boolean isAvailableToDelete(String placeName) {
-        return ticketService.hasAssociatedTicket(placeName);
-    }
-
-    // method injection
-    public void setTicketService(TicketService ticketService) {
-        this.ticketService = ticketService;
-    }
-
-
-    
 
 }

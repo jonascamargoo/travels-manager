@@ -75,4 +75,8 @@ public class PaymentService {
         return true; // boleto aways valid
     }
 
+    public void deletePayments() {
+        paymentRepository.deleteAll();
+    }
+
 }

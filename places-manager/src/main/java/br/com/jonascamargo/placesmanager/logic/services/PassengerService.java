@@ -43,4 +43,8 @@ public class PassengerService {
         return passengerRepository.save(passenger);
     }
 
+    public void deletePassenger() {
+        passengerRepository.deleteAll();
+    }
+
 }
