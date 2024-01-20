@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.github.slugify.Slugify;
 
 import br.com.jonascamargo.placesmanager.infrastructure.dtos.PlaceRecordDto;
+import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.AssociatedTicketsException;
 import br.com.jonascamargo.placesmanager.infrastructure.exceptions.customExceptions.PlaceNotFoundException;
 import br.com.jonascamargo.placesmanager.infrastructure.models.Place;
 import br.com.jonascamargo.placesmanager.infrastructure.repositories.PlaceRepository;
@@ -55,6 +58,18 @@ public class PlaceService {
     public Place updatePlace(PlaceRecordDto placeRecordDto, Place place) {
         BeanUtils.copyProperties(placeRecordDto, place);
         return placeRepository.save(place);
+    }
+
+    public Place deletePlaceById(UUID id) {
+        try {
+            Place place = getPlaceById(id);
+            placeRepository.deleteById(id);
+            return place;
+        } catch (EmptyResultDataAccessException e) {
+            throw new PlaceNotFoundException();
+        } catch (DataIntegrityViolationException e) {
+            throw new AssociatedTicketsException();
+        }
     }
 
     public void deletePlaces() {

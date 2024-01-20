@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Random;
 
-import org.apache.el.stream.Optional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -48,7 +47,7 @@ public class PlacesManagerApplication {
            
             // Creating after places to avoid PlaceNotFoundException
             Random rd = new Random();
-            for (int i = 0; i < 20; i += 2) {
+            for (int i = 0; i < 5; i += 2) {
 
                 // Create places
                 Place place0 = new Place();

@@ -72,6 +72,12 @@ public class PlaceController {
         return ResponseEntity.status(HttpStatus.OK).body(updatedPlace);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Place> deleteOnePlace(@PathVariable(value = "id") UUID id) {
+        Place place = placeService.deletePlaceById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(place);
+    }
+
     @DeleteMapping("/")
     public ResponseEntity<Object> deleteAllPlaces() {
         this.placeService.deletePlaces();
