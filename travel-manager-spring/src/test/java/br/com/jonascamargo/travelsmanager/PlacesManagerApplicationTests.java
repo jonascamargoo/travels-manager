@@ -1,4 +1,4 @@
-package br.com.jonascamargo.placesmanager;
+package br.com.jonascamargo.travelsmanager;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

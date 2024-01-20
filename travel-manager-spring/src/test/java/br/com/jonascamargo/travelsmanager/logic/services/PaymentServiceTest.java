@@ -1,4 +1,4 @@
-package br.com.jonascamargo.placesmanager.logic.services;
+package br.com.jonascamargo.travelsmanager.logic.services;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;

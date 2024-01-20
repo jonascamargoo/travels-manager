@@ -1,3 +1,4 @@
+package br.com.jonascamargo.travelsmanager;
 // package br.com.jonascamargo.placesmanager;
 
 // import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
