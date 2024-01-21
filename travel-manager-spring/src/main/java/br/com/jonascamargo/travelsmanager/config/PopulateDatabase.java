@@ -8,8 +8,7 @@ import java.util.Random;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
-// import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
 import br.com.jonascamargo.travelsmanager.infrastructure.models.Place;
 import br.com.jonascamargo.travelsmanager.infrastructure.models.Ticket;
@@ -18,10 +17,10 @@ import br.com.jonascamargo.travelsmanager.infrastructure.repositories.PaymentRep
 import br.com.jonascamargo.travelsmanager.infrastructure.repositories.PlaceRepository;
 import br.com.jonascamargo.travelsmanager.infrastructure.repositories.TicketRepository;
 
-@Component
+@Configuration
 public class PopulateDatabase {
     @Bean
-    CommandLineRunner populateDatabase(
+    CommandLineRunner initDatabase(
             PlaceRepository placeRepository,
             TicketRepository ticketRepository,
             PassengerRepository passengerRepository,
@@ -62,5 +61,3 @@ public class PopulateDatabase {
         };
     }
 }
-
-
