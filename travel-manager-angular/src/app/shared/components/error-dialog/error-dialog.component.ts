@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-error-dialog',
@@ -7,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ErrorDialogComponent implements OnInit {
 
-  constructor() { }
+  // injetando o tipo MAT_DIALOG_DATA para o data
+  constructor(@Inject (MAT_DIALOG_DATA) public data: string) { }
 
   ngOnInit(): void {
   }
