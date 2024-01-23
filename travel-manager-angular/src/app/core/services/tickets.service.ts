@@ -12,7 +12,7 @@ import { delay, first, tap } from 'rxjs/operators';
 export class TicketsService {
 
   // spring connection
-  private readonly API = 'api/passagens';
+  private readonly API = 'api/tickets';
 
 
   constructor(private httpClient: HttpClient) { }
@@ -20,7 +20,7 @@ export class TicketsService {
   list() {
     return this.httpClient.get<Ticket[]>(this.API).pipe(
       first(),
-      delay(5000),
+      //delay(5000),
       tap(tickets => console.log(tickets))
     );
   }

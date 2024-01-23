@@ -9,6 +9,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.hateoas.RepresentationModel;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +26,7 @@ public class Place extends RepresentationModel<Place> implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonProperty("_id") // sinalizar para o jackson transformar idPlace para _id. Solucao momentanea - mudar para o uso de DTO posteriormente
     private UUID idPlace;
     private String name;
     private String slug;

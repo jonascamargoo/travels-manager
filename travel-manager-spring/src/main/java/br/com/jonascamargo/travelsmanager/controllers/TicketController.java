@@ -22,7 +22,7 @@ import br.com.jonascamargo.travelsmanager.logic.services.TicketService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/passagens")
+@RequestMapping("/api/tickets")
 public class TicketController {
     private final TicketService ticketService;
 

@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.hateoas.RepresentationModel;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -27,6 +28,7 @@ public class Ticket extends RepresentationModel<Ticket> implements Serializable 
     
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @JsonProperty("_id") //sinalizar para o jackson que deve transformar o idTicket para _id
     private UUID idTicket;
 
     @ManyToOne

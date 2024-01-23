@@ -6,6 +6,8 @@ import java.util.UUID;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.hateoas.RepresentationModel;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
@@ -21,6 +23,7 @@ public class Passenger extends RepresentationModel<Passenger> implements Seriali
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @JsonProperty("_id")
     private UUID idPassenger;
     private String name;
     private int age;

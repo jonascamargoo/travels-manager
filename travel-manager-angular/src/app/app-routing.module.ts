@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   // path eh pra bater no localhost:4200/, patchMatch eh pra verificar com ou sem a barra, redirect eh pra direcionar 
 
-  { path: '', pathMatch: 'full', redirectTo: 'passagens'},
+  { path: '', pathMatch: 'full', redirectTo: 'tickets'},
   {
     path: 'tickets',
     loadChildren: () => import('./core/core.module').then(m => m.CoreModule)
@@ -16,3 +16,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
+

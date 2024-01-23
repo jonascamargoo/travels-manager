@@ -7,6 +7,8 @@ import java.util.UUID;
 
 import org.springframework.hateoas.RepresentationModel;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import br.com.jonascamargo.travelsmanager.enums.PaymentMethod;
 import br.com.jonascamargo.travelsmanager.enums.PaymentStatus;
 import jakarta.persistence.Entity;
@@ -22,6 +24,7 @@ public class Payment extends RepresentationModel<Payment> implements Serializabl
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonProperty("_id")
     private UUID idPayment;
     private String description;
     private BigDecimal amount;
