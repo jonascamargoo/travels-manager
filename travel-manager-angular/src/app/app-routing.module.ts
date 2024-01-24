@@ -2,13 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  // path eh pra bater no localhost:4200/, patchMatch eh pra verificar com ou sem a barra, redirect eh pra direcionar 
-
   { path: '', pathMatch: 'full', redirectTo: 'tickets'},
-  {
-    path: 'tickets',
-    loadChildren: () => import('./core/core.module').then(m => m.CoreModule)
-  }
+  { path: 'tickets', loadChildren: () => import('./features/tickets/tickets.module').then(m => m.TicketsModule)},
+  // { path: 'passengers', loadChildren: () => import('./features/passengers/passengers.module').then(m => m.PassengersModule) },
+  // { path: 'payments', loadChildren: () => import('./features/payments/payments.module').then(m => m.PaymentsModule) },
 ];
 
 @NgModule({
@@ -16,5 +13,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-
-

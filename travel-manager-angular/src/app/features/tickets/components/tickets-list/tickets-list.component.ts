@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, catchError, of } from 'rxjs';
-import { Ticket } from '../../models/Ticket';
+import { Ticket } from '../../model/Ticket';
 import { TicketsService } from '../../services/tickets.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 
-import { Ticket } from '../models/Ticket';
+import { Ticket } from '../model/Ticket';
 
 import { delay, first, tap } from 'rxjs/operators';
 
@@ -12,7 +12,7 @@ import { delay, first, tap } from 'rxjs/operators';
 export class TicketsService {
 
   // spring connection
-  private readonly API = 'api/tickets';
+  private readonly API = 'http://localhost:8080/api/tickets/';
 
 
   constructor(private httpClient: HttpClient) { }
