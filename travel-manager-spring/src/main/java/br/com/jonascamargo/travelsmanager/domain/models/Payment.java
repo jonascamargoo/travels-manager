@@ -16,12 +16,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "TB_Payments")
+@Getter
+@Setter
 public class Payment extends RepresentationModel<Payment> implements Serializable {
     private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty("_id")
@@ -34,64 +37,4 @@ public class Payment extends RepresentationModel<Payment> implements Serializabl
     private PaymentMethod paymentMethod;
     private Passenger buyer;
 
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
-    public PaymentStatus getPaymentStatus() {
-        return paymentStatus;
-    }
-    
-    public void setPaymentStatus(PaymentStatus paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
-    
-    public Passenger getBuyer() {
-        return buyer;
-    }
-    public void setBuyer(Passenger buyer) {
-        this.buyer = buyer;
-    }
-    
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-    
-    public LocalDateTime getPaymentTime() {
-        return paymentTime;
-    }
-    
-    public void setPaymentTime(LocalDateTime paymentTime) {
-        this.paymentTime = paymentTime;
-    }
-    
-
-    
 }

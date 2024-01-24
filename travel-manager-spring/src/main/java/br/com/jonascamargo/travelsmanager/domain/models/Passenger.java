@@ -14,15 +14,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "TB_PASSENGERS")
+@Getter
+@Setter
 @EntityListeners(AuditingEntityListener.class)
 public class Passenger extends RepresentationModel<Passenger> implements Serializable {
     private static final long serialVersionUID = 1L;
-
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty("_id")
     private UUID idPassenger;
     private String name;
@@ -31,45 +34,4 @@ public class Passenger extends RepresentationModel<Passenger> implements Seriali
     private String phoneNumber;
     private String slug;
 
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
-
-    public UUID getIdPassenger() {
-        return idPassenger;
-    }
-    
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public int getAge() {
-        return age;
-    }
-    public void setAge(int age) {
-        this.age = age;
-    }
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-    public String getSlug() {
-        return slug;
-    }
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
-
-    
 }

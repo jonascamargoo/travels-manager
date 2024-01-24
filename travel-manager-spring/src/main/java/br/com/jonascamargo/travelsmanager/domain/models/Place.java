@@ -17,16 +17,20 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "TB_PLACES")
+@Getter
+@Setter
 @EntityListeners(AuditingEntityListener.class)
 public class Place extends RepresentationModel<Place> implements Serializable {
     private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonProperty("_id") // sinalizar para o jackson transformar idPlace para _id. Solucao momentanea - mudar para o uso de DTO posteriormente
+    @JsonProperty("_id") // sinalizar para o jackson transformar idPlace para _id. Solucao momentanea -
+                         // mudar para o uso de DTO posteriormente
     private UUID idPlace;
     private String name;
     private String slug;
@@ -35,49 +39,5 @@ public class Place extends RepresentationModel<Place> implements Serializable {
     private LocalDateTime createdAt;
     @LastModifiedDate
     private LocalDateTime updatedAt;
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
-
-    public UUID getIdPlace() {
-        return idPlace;
-    }
-
-    public void setIdPlace(UUID idPlace) {
-        this.idPlace = idPlace;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
 
 }
