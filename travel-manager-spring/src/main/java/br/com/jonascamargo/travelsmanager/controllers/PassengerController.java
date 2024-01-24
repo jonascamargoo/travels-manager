@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.jonascamargo.travelsmanager.infrastructure.dtos.PassengerRecordDto;
-import br.com.jonascamargo.travelsmanager.infrastructure.models.Passenger;
-import br.com.jonascamargo.travelsmanager.logic.services.PassengerService;
+import br.com.jonascamargo.travelsmanager.domain.dtos.PassengerRecordDto;
+import br.com.jonascamargo.travelsmanager.domain.models.Passenger;
+import br.com.jonascamargo.travelsmanager.services.PassengerService;
 import jakarta.validation.Valid;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;

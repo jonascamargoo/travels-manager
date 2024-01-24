@@ -13,9 +13,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import br.com.jonascamargo.travelsmanager.infrastructure.dtos.PassengerRecordDto;
-import br.com.jonascamargo.travelsmanager.infrastructure.models.Passenger;
-import br.com.jonascamargo.travelsmanager.infrastructure.repositories.PassengerRepository;
+import br.com.jonascamargo.travelsmanager.domain.dtos.PassengerRecordDto;
+import br.com.jonascamargo.travelsmanager.domain.models.Passenger;
+import br.com.jonascamargo.travelsmanager.repositories.PassengerRepository;
+import br.com.jonascamargo.travelsmanager.services.PassengerService;
 
 @DisplayName("Passanger Service Tests")
 public class PassengerServiceTest {

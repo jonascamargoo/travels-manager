@@ -13,9 +13,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import br.com.jonascamargo.travelsmanager.infrastructure.dtos.PlaceRecordDto;
-import br.com.jonascamargo.travelsmanager.infrastructure.models.Place;
-import br.com.jonascamargo.travelsmanager.infrastructure.repositories.PlaceRepository;
+import br.com.jonascamargo.travelsmanager.domain.dtos.PlaceRecordDto;
+import br.com.jonascamargo.travelsmanager.domain.models.Place;
+import br.com.jonascamargo.travelsmanager.repositories.PlaceRepository;
+import br.com.jonascamargo.travelsmanager.services.PlaceService;
 
 @DisplayName("Place Service Tests")
 public class PlaceServiceTest {
