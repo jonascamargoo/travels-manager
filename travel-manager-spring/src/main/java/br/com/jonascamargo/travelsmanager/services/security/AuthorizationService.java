@@ -1,4 +1,4 @@
-package br.com.jonascamargo.travelsmanager.services;
+package br.com.jonascamargo.travelsmanager.services.security;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

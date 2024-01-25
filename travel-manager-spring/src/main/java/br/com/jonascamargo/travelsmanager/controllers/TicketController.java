@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.jonascamargo.travelsmanager.domain.dtos.TicketRecordDTO;
 import br.com.jonascamargo.travelsmanager.domain.models.Ticket;
-import br.com.jonascamargo.travelsmanager.services.TicketService;
+import br.com.jonascamargo.travelsmanager.services.logic.TicketService;
 import jakarta.validation.Valid;
 
 @RestController

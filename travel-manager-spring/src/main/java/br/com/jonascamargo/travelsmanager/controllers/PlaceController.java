@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.jonascamargo.travelsmanager.domain.dtos.PlaceRecordDTO;
 import br.com.jonascamargo.travelsmanager.domain.models.Place;
-import br.com.jonascamargo.travelsmanager.services.PlaceService;
+import br.com.jonascamargo.travelsmanager.services.logic.PlaceService;
 import jakarta.validation.Valid;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;

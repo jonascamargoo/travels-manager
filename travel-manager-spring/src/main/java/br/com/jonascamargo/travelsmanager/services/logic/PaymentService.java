@@ -1,4 +1,4 @@
-package br.com.jonascamargo.travelsmanager.services;
+package br.com.jonascamargo.travelsmanager.services.logic;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -13,6 +13,7 @@ import br.com.jonascamargo.travelsmanager.enums.PaymentMethod;
 import br.com.jonascamargo.travelsmanager.repositories.PassengerRepository;
 import br.com.jonascamargo.travelsmanager.repositories.PaymentRepository;
 import br.com.jonascamargo.travelsmanager.repositories.TicketRepository;
+import br.com.jonascamargo.travelsmanager.services.CreditCardValidationService;
 
 
 @Service

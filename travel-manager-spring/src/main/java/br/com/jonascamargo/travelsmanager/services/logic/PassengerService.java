@@ -1,4 +1,4 @@
-package br.com.jonascamargo.travelsmanager.services;
+package br.com.jonascamargo.travelsmanager.services.logic;
 
 import java.util.List;
 import java.util.UUID;

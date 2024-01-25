@@ -22,7 +22,7 @@ import org.mockito.MockitoAnnotations;
 import br.com.jonascamargo.travelsmanager.domain.dtos.TicketRecordDTO;
 import br.com.jonascamargo.travelsmanager.domain.models.Ticket;
 import br.com.jonascamargo.travelsmanager.repositories.TicketRepository;
-import br.com.jonascamargo.travelsmanager.services.TicketService;
+import br.com.jonascamargo.travelsmanager.services.logic.TicketService;
 
 @DisplayName("Ticket Service Tests")
 public class TicketServiceTest {

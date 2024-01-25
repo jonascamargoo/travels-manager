@@ -16,7 +16,7 @@ import org.mockito.MockitoAnnotations;
 import br.com.jonascamargo.travelsmanager.domain.dtos.PassengerRecordDTO;
 import br.com.jonascamargo.travelsmanager.domain.models.Passenger;
 import br.com.jonascamargo.travelsmanager.repositories.PassengerRepository;
-import br.com.jonascamargo.travelsmanager.services.PassengerService;
+import br.com.jonascamargo.travelsmanager.services.logic.PassengerService;
 
 @DisplayName("Passanger Service Tests")
 public class PassengerServiceTest {

@@ -16,7 +16,7 @@ import org.mockito.MockitoAnnotations;
 import br.com.jonascamargo.travelsmanager.domain.dtos.PlaceRecordDTO;
 import br.com.jonascamargo.travelsmanager.domain.models.Place;
 import br.com.jonascamargo.travelsmanager.repositories.PlaceRepository;
-import br.com.jonascamargo.travelsmanager.services.PlaceService;
+import br.com.jonascamargo.travelsmanager.services.logic.PlaceService;
 
 @DisplayName("Place Service Tests")
 public class PlaceServiceTest {

@@ -12,6 +12,7 @@ import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.PassengerN
 import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.PlaceNotFoundException;
 import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.SourceEqualsDestinationException;
 import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.TicketNotFoundException;
+import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.TokenGenerationException;
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -50,6 +51,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<RestErrorMessage> sourceEqualsDestinationHandler(SourceEqualsDestinationException exception) {
         RestErrorMessage threatResponse = new RestErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(threatResponse);
+    }
+
+    @ExceptionHandler(TokenGenerationException.class)
+    private ResponseEntity<RestErrorMessage> tokenGenerationHandler(TokenGenerationException exception) {
+        RestErrorMessage threatResponse = new RestErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(threatResponse);
     }
 
 
