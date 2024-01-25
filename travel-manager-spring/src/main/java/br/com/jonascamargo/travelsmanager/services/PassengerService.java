@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.slugify.Slugify;
 
-import br.com.jonascamargo.travelsmanager.domain.dtos.PassengerRecordDto;
+import br.com.jonascamargo.travelsmanager.domain.dtos.PassengerRecordDTO;
 import br.com.jonascamargo.travelsmanager.domain.models.Passenger;
 import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.PassengerNotFoundException;
 import br.com.jonascamargo.travelsmanager.repositories.PassengerRepository;
@@ -23,10 +23,10 @@ public class PassengerService {
         this.slug = Slugify.builder().build();
     }
 
-    public Passenger createPassenger(PassengerRecordDto passengerRecordDto) {
+    public Passenger createPassenger(PassengerRecordDTO passengerRecordDTO) {
         Passenger passenger = new Passenger();
-        BeanUtils.copyProperties(passengerRecordDto, passenger);
-        passenger.setSlug(slug.slugify(passengerRecordDto.name()));
+        BeanUtils.copyProperties(passengerRecordDTO, passenger);
+        passenger.setSlug(slug.slugify(passengerRecordDTO.name()));
         return passengerRepository.save(passenger);
     }
 
@@ -38,8 +38,8 @@ public class PassengerService {
         return passengerRepository.findById(id).orElseThrow(PassengerNotFoundException::new);
     }
 
-    public Passenger updatePassenger(PassengerRecordDto passengerRecordDto, Passenger passenger) {
-        BeanUtils.copyProperties(passengerRecordDto, passenger);
+    public Passenger updatePassenger(PassengerRecordDTO passengerRecordDTO, Passenger passenger) {
+        BeanUtils.copyProperties(passengerRecordDTO, passenger);
         return passengerRepository.save(passenger);
     }
 

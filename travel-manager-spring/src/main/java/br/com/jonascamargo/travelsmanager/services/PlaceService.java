@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.slugify.Slugify;
 
-import br.com.jonascamargo.travelsmanager.domain.dtos.PlaceRecordDto;
+import br.com.jonascamargo.travelsmanager.domain.dtos.PlaceRecordDTO;
 import br.com.jonascamargo.travelsmanager.domain.models.Place;
 import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.AssociatedTicketsException;
 import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.PlaceNotFoundException;
@@ -27,10 +27,10 @@ public class PlaceService {
 
     }
 
-    public Place createPlace(PlaceRecordDto placeRecordDto) {
+    public Place createPlace(PlaceRecordDTO placeRecordDTO) {
         Place place = new Place();
-        BeanUtils.copyProperties(placeRecordDto, place);
-        place.setSlug(slug.slugify(placeRecordDto.name()));
+        BeanUtils.copyProperties(placeRecordDTO, place);
+        place.setSlug(slug.slugify(placeRecordDTO.name()));
         return placeRepository.save(place);
     }
 
@@ -55,8 +55,8 @@ public class PlaceService {
         
     }
 
-    public Place updatePlace(PlaceRecordDto placeRecordDto, Place place) {
-        BeanUtils.copyProperties(placeRecordDto, place);
+    public Place updatePlace(PlaceRecordDTO placeRecordDTO, Place place) {
+        BeanUtils.copyProperties(placeRecordDTO, place);
         return placeRepository.save(place);
     }
 

@@ -31,14 +31,20 @@ public class User implements UserDetails {
     private UUID idUser;
     private String login;
     private String password;
-    private UserRole role;
+    private UserRole userRole;
     private String email;
     private String phoneNumber;
     private String slug;
 
+    public User(String login, String password, UserRole userRole) {
+        this.login = login;
+        this.password = password;
+        this.userRole = userRole;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return (this.role == UserRole.ADMIN)
+        return (this.userRole == UserRole.ADMIN)
                 ? List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"))
                 : List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }

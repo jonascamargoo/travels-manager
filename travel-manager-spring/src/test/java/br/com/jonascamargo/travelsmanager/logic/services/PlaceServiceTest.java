@@ -13,7 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import br.com.jonascamargo.travelsmanager.domain.dtos.PlaceRecordDto;
+import br.com.jonascamargo.travelsmanager.domain.dtos.PlaceRecordDTO;
 import br.com.jonascamargo.travelsmanager.domain.models.Place;
 import br.com.jonascamargo.travelsmanager.repositories.PlaceRepository;
 import br.com.jonascamargo.travelsmanager.services.PlaceService;
@@ -35,11 +35,11 @@ public class PlaceServiceTest {
     @DisplayName("Should create a place successfully when everything is ok")
     void createPlace() {
         // Arrange
-        PlaceRecordDto placeRecordDto = new PlaceRecordDto("Test Place", null);
+        PlaceRecordDTO placeRecordDTO = new PlaceRecordDTO("Test Place", null);
         // Mocking behavior
         when(placeRepository.save(any())).thenReturn(new Place());
         // Act
-        Place createdPlace = placeService.createPlace(placeRecordDto);
+        Place createdPlace = placeService.createPlace(placeRecordDTO);
         // Assert
         assertNotNull(createdPlace);
         verify(placeRepository, times(1)).save(any());

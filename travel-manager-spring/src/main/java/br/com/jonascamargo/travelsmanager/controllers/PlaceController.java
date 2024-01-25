@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.jonascamargo.travelsmanager.domain.dtos.PlaceRecordDto;
+import br.com.jonascamargo.travelsmanager.domain.dtos.PlaceRecordDTO;
 import br.com.jonascamargo.travelsmanager.domain.models.Place;
 import br.com.jonascamargo.travelsmanager.services.PlaceService;
 import jakarta.validation.Valid;
@@ -33,8 +33,8 @@ public class PlaceController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Place> createPlace(@RequestBody @Valid PlaceRecordDto placeRecordDto) {
-        Place createdPlace = placeService.createPlace(placeRecordDto);
+    public ResponseEntity<Place> createPlace(@RequestBody @Valid PlaceRecordDTO placeRecordDTO) {
+        Place createdPlace = placeService.createPlace(placeRecordDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPlace);
     }
 
@@ -67,8 +67,8 @@ public class PlaceController {
     @PutMapping("/{id}")
     public ResponseEntity<Place> updatePlace(
             @PathVariable(value = "id") UUID id,
-            @RequestBody @Valid PlaceRecordDto placeRecordDto) {
-        Place updatedPlace = placeService.updatePlace(placeRecordDto, placeService.getPlaceById(id));
+            @RequestBody @Valid PlaceRecordDTO placeRecordDTO) {
+        Place updatedPlace = placeService.updatePlace(placeRecordDTO, placeService.getPlaceById(id));
         return ResponseEntity.status(HttpStatus.OK).body(updatedPlace);
     }
 

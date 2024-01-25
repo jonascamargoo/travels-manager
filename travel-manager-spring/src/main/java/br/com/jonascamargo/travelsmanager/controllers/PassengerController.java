@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.jonascamargo.travelsmanager.domain.dtos.PassengerRecordDto;
+import br.com.jonascamargo.travelsmanager.domain.dtos.PassengerRecordDTO;
 import br.com.jonascamargo.travelsmanager.domain.models.Passenger;
 import br.com.jonascamargo.travelsmanager.services.PassengerService;
 import jakarta.validation.Valid;
@@ -32,8 +32,8 @@ public class PassengerController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Passenger> createPassenger(@RequestBody @Valid PassengerRecordDto passengerRecordDto) {
-        Passenger createdPassenger = passengerService.createPassenger(passengerRecordDto);
+    public ResponseEntity<Passenger> createPassenger(@RequestBody @Valid PassengerRecordDTO passengerRecordDTO) {
+        Passenger createdPassenger = passengerService.createPassenger(passengerRecordDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPassenger);
     }
 
@@ -54,8 +54,8 @@ public class PassengerController {
     @PutMapping("/{id}")
     public ResponseEntity<Object> updatePassenger(
         @PathVariable(value = "id") UUID id,
-        @RequestBody @Valid PassengerRecordDto passengerRecordDto) {
-        Passenger updatedPassenger = passengerService.updatePassenger(passengerRecordDto, passengerService.getPassengerById(id));
+        @RequestBody @Valid PassengerRecordDTO passengerRecordDTO) {
+        Passenger updatedPassenger = passengerService.updatePassenger(passengerRecordDTO, passengerService.getPassengerById(id));
         return ResponseEntity.status(HttpStatus.OK).body(updatedPassenger);
     }
 

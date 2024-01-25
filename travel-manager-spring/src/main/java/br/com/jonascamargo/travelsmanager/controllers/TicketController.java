@@ -8,7 +8,6 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.jonascamargo.travelsmanager.domain.dtos.TicketRecordDto;
+import br.com.jonascamargo.travelsmanager.domain.dtos.TicketRecordDTO;
 import br.com.jonascamargo.travelsmanager.domain.models.Ticket;
 import br.com.jonascamargo.travelsmanager.services.TicketService;
 import jakarta.validation.Valid;
@@ -33,8 +32,8 @@ public class TicketController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Ticket> createTicket(@RequestBody @Valid TicketRecordDto ticketRecordDto) {
-        Ticket createdTicket = ticketService.createTicket(ticketRecordDto);
+    public ResponseEntity<Ticket> createTicket(@RequestBody @Valid TicketRecordDTO ticketRecordDTO) {
+        Ticket createdTicket = ticketService.createTicket(ticketRecordDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTicket);
     }
 

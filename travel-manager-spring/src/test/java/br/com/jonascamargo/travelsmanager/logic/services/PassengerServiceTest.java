@@ -13,7 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import br.com.jonascamargo.travelsmanager.domain.dtos.PassengerRecordDto;
+import br.com.jonascamargo.travelsmanager.domain.dtos.PassengerRecordDTO;
 import br.com.jonascamargo.travelsmanager.domain.models.Passenger;
 import br.com.jonascamargo.travelsmanager.repositories.PassengerRepository;
 import br.com.jonascamargo.travelsmanager.services.PassengerService;
@@ -35,7 +35,7 @@ public class PassengerServiceTest {
     @Test
     @DisplayName("Should create a passanger successfully when everything is ok")
     void createPassenger() {
-        PassengerRecordDto validReq = new PassengerRecordDto(
+        PassengerRecordDTO validReq = new PassengerRecordDTO(
                 "joao",
                 20,
                 "joao@gmail.com",

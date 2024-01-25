@@ -8,7 +8,7 @@ import br.com.jonascamargo.travelsmanager.enums.PaymentMethod;
 import br.com.jonascamargo.travelsmanager.enums.PaymentStatus;
 import jakarta.validation.constraints.NotBlank;
 
-public record PaymentRecordDto(
+public record PaymentRecordDTO(
         UUID ticketId,
         UUID passengerId,
         @NotBlank String description,

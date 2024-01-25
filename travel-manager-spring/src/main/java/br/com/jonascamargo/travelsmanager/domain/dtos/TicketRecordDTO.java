@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.NotNull;
 
-public record TicketRecordDto(
+public record TicketRecordDTO(
         @NotNull String source,
         @NotNull String destination,
         @NotNull BigDecimal price,

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.slugify.Slugify;
 
-import br.com.jonascamargo.travelsmanager.domain.dtos.PaymentRecordDto;
+import br.com.jonascamargo.travelsmanager.domain.dtos.PaymentRecordDTO;
 import br.com.jonascamargo.travelsmanager.domain.models.Passenger;
 import br.com.jonascamargo.travelsmanager.domain.models.Payment;
 import br.com.jonascamargo.travelsmanager.domain.models.Ticket;
@@ -32,45 +32,45 @@ public class PaymentService {
     }
 
     // Utilizar o RabbitMQ para enviar a confirmacao de pagamento
-    public Payment createPayment(PaymentRecordDto paymentRecordDto) {
+    public Payment createPayment(PaymentRecordDTO paymentRecordDTO) {
         // Retrieve the Ticket object based on the provided ticketId
-        Ticket ticket = ticketRepository.findById(paymentRecordDto.ticketId())
+        Ticket ticket = ticketRepository.findById(paymentRecordDTO.ticketId())
                 .orElseThrow(() -> new IllegalArgumentException("Ticket not found"));
         // Retrieve the Passenger object based on the provided passengerId
-        Passenger passenger = passengerRepository.findById(paymentRecordDto.passengerId())
+        Passenger passenger = passengerRepository.findById(paymentRecordDTO.passengerId())
                 .orElseThrow(() -> new IllegalArgumentException("Passenger not found"));
         // Validate payment at the beginning
-        if (!isValidPayment(paymentRecordDto, ticket, passenger)) {
+        if (!isValidPayment(paymentRecordDTO, ticket, passenger)) {
             throw new IllegalArgumentException("Payment invalid.");
         }
         Payment payment = new Payment();
-        BeanUtils.copyProperties(paymentRecordDto, payment);
-        payment.setSlug(slug.slugify(paymentRecordDto.description()));
+        BeanUtils.copyProperties(paymentRecordDTO, payment);
+        payment.setSlug(slug.slugify(paymentRecordDTO.description()));
         // Save Payment
         return paymentRepository.save(payment);
     }
 
-    public boolean isValidPayment(PaymentRecordDto paymentRecordDto, Ticket ticket, Passenger passenger) {
-        return isAmountEnough(paymentRecordDto, ticket) &&
+    public boolean isValidPayment(PaymentRecordDTO paymentRecordDTO, Ticket ticket, Passenger passenger) {
+        return isAmountEnough(paymentRecordDTO, ticket) &&
                 isPassengerLegalAge(passenger) &&
-                isPaymentMethodValid(paymentRecordDto);
+                isPaymentMethodValid(paymentRecordDTO);
 
     }
 
-    public boolean isAmountEnough(PaymentRecordDto paymentRecordDto, Ticket ticket) {
-        return paymentRecordDto.amount().compareTo(ticket.getPrice()) > 0;
+    public boolean isAmountEnough(PaymentRecordDTO paymentRecordDTO, Ticket ticket) {
+        return paymentRecordDTO.amount().compareTo(ticket.getPrice()) > 0;
     }
 
     public boolean isPassengerLegalAge(Passenger passenger) {
         return passenger.getAge() >= 18;
     }
 
-    public boolean isPaymentMethodValid(PaymentRecordDto paymentRecordDto) {
+    public boolean isPaymentMethodValid(PaymentRecordDTO paymentRecordDTO) {
 
-        PaymentMethod paymentMethod = paymentRecordDto.paymentMethod();
+        PaymentMethod paymentMethod = paymentRecordDTO.paymentMethod();
         if (paymentMethod == PaymentMethod.CREDIT_CARD) {
             creditCardValidation = new CreditCardValidationService();
-            return creditCardValidation.isCreditCardValid(paymentRecordDto.cardDigits());
+            return creditCardValidation.isCreditCardValid(paymentRecordDTO.cardDigits());
         }
         return true; // boleto aways valid
     }

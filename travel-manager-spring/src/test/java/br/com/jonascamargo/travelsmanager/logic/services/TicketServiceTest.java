@@ -19,7 +19,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import br.com.jonascamargo.travelsmanager.domain.dtos.TicketRecordDto;
+import br.com.jonascamargo.travelsmanager.domain.dtos.TicketRecordDTO;
 import br.com.jonascamargo.travelsmanager.domain.models.Ticket;
 import br.com.jonascamargo.travelsmanager.repositories.TicketRepository;
 import br.com.jonascamargo.travelsmanager.services.TicketService;
@@ -42,9 +42,9 @@ public class TicketServiceTest {
     @Test
     @DisplayName("Check if Ticket Time is Valid")
     void isValidTicketTime() {
-        // Create a TicketRecordDto with a purchase 25 minutes before departure
+        // Create a TicketRecordDTO with a purchase 25 minutes before departure
         // (invalid)
-        TicketRecordDto invalidReq = new TicketRecordDto(
+        TicketRecordDTO invalidReq = new TicketRecordDTO(
                 "city0",
                 "city1",
                 new BigDecimal(100),
@@ -54,8 +54,8 @@ public class TicketServiceTest {
         // Verify if the method returns false for an invalid time
         assertFalse(ticketService.isTicketTimeStillValid(invalidReq));
 
-        // Create a TicketRecordDto with a purchase 91 minutes before departure (valid)
-        TicketRecordDto validReq = new TicketRecordDto(
+        // Create a TicketRecordDTO with a purchase 91 minutes before departure (valid)
+        TicketRecordDTO validReq = new TicketRecordDTO(
                 "city0",
                 "city1",
                 new BigDecimal(100),
@@ -68,7 +68,7 @@ public class TicketServiceTest {
     @DisplayName("Should create a ticket successfully when everything is ok")
     void createTicket() {
         // valid
-        TicketRecordDto validReq = new TicketRecordDto(
+        TicketRecordDTO validReq = new TicketRecordDTO(
                 "city0",
                 "city1",
                 new BigDecimal(100),

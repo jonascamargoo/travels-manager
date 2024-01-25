@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.slugify.Slugify;
 
-import br.com.jonascamargo.travelsmanager.domain.dtos.TicketRecordDto;
+import br.com.jonascamargo.travelsmanager.domain.dtos.TicketRecordDTO;
 import br.com.jonascamargo.travelsmanager.domain.models.Ticket;
 import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.InvalidTicketTimeException;
 import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.PlaceNotFoundException;
@@ -30,25 +30,25 @@ public class TicketService {
     }
 
   
-    public Ticket createTicket(TicketRecordDto ticketRecordDto) {
-        if (!isTicketTimeStillValid(ticketRecordDto)) {
+    public Ticket createTicket(TicketRecordDTO ticketRecordDTO) {
+        if (!isTicketTimeStillValid(ticketRecordDTO)) {
             throw new InvalidTicketTimeException();
         }
-        if(ticketRecordDto.source().equals(ticketRecordDto.destination())) {
+        if(ticketRecordDTO.source().equals(ticketRecordDTO.destination())) {
             throw new SourceEqualsDestinationException();
         }
         if(
-            !placeService.existsByName(ticketRecordDto.source()) ||
-            !placeService.existsByName(ticketRecordDto.destination())
+            !placeService.existsByName(ticketRecordDTO.source()) ||
+            !placeService.existsByName(ticketRecordDTO.destination())
         ) {
             throw new PlaceNotFoundException();
         }
         
         Ticket ticket = new Ticket();
-        BeanUtils.copyProperties(ticketRecordDto, ticket);
-        ticket.setSource(placeService.getPlaceByName(ticketRecordDto.source()));
-        ticket.setDestination(placeService.getPlaceByName(ticketRecordDto.destination()));
-        ticket.setSlug(slug.slugify(ticketRecordDto.source() + "-" + ticketRecordDto.destination()));
+        BeanUtils.copyProperties(ticketRecordDTO, ticket);
+        ticket.setSource(placeService.getPlaceByName(ticketRecordDTO.source()));
+        ticket.setDestination(placeService.getPlaceByName(ticketRecordDTO.destination()));
+        ticket.setSlug(slug.slugify(ticketRecordDTO.source() + "-" + ticketRecordDTO.destination()));
         return ticketRepository.save(ticket);
 
     }
@@ -62,8 +62,8 @@ public class TicketService {
     }
 
     // the purchase is only allowed 30 minutes prior to the departure time
-    public boolean isTicketTimeStillValid(TicketRecordDto ticketRecordDto) {
-        Duration duration = Duration.between(ticketRecordDto.purchaseTime(), ticketRecordDto.departureTime());
+    public boolean isTicketTimeStillValid(TicketRecordDTO ticketRecordDTO) {
+        Duration duration = Duration.between(ticketRecordDTO.purchaseTime(), ticketRecordDTO.departureTime());
         return duration.toMinutes() >= 30;
     }
 
