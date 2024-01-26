@@ -1,5 +1,6 @@
 package br.com.jonascamargo.travelsmanager.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,32 +12,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.jonascamargo.travelsmanager.domain.dtos.AuthenticationDTO;
+import br.com.jonascamargo.travelsmanager.domain.dtos.LoginResponseDTO;
 import br.com.jonascamargo.travelsmanager.domain.dtos.RegisterDTO;
 import br.com.jonascamargo.travelsmanager.domain.models.User;
 import br.com.jonascamargo.travelsmanager.repositories.UserRepository;
+import br.com.jonascamargo.travelsmanager.services.security.TokenService;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticationController {
 
+    @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private TokenService tokenService;
 
     // RETIRAR O USER REPOSITORY DAQUI DEPOIS
 
-    public AuthenticationController(AuthenticationManager authenticationManager, UserRepository userRepository) {
-        this.authenticationManager = authenticationManager;
-        this.userRepository = userRepository;
-    }
+    // public AuthenticationController(AuthenticationManager authenticationManager, UserRepository userRepository, TokenService tokenService) {
+    //     this.authenticationManager = authenticationManager;
+    //     this.userRepository = userRepository;
+    //     this.tokenService = tokenService;
+    // }
 
-    // Devo retornar User na resp?
+    // Quando o usuario logar, ele recebera um token e com esse token conseguira acessar os endpoints definidos em SecurityConfiguration
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid AuthenticationDTO authenticationDTO) {
-        var usernamePasword = new UsernamePasswordAuthenticationToken(authenticationDTO.login(), authenticationDTO.password());
-        var auth = this.authenticationManager.authenticate(usernamePasword);
-        // var token = tokenService
-        return ResponseEntity.ok().build();
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthenticationDTO authenticationDTO) {
+        var usernamePassword = new UsernamePasswordAuthenticationToken(authenticationDTO.login(), authenticationDTO.password());
+        // fazendo encode e comparacao
+        var auth = authenticationManager.authenticate(usernamePassword);
+        var token = tokenService.generateToken((User)auth.getPrincipal());
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     // nao uso o mesmo DTO, pois aqui tera o Role do user tb
@@ -45,7 +54,9 @@ public class AuthenticationController {
         if(this.userRepository.findByLogin(registerDTO.password()) != null) {
             return ResponseEntity.badRequest().build();
         }
+        // pegando o hash da senha
         String encryptedPassword = new BCryptPasswordEncoder().encode(registerDTO.password());
+        
         User newUser = new User(registerDTO.login(), encryptedPassword, registerDTO.userRole());
 
         this.userRepository.save(newUser);
