@@ -46,19 +46,19 @@ public class SecurityConfiguration {
                         //.requestMatchers(HttpMethod.GET, "/api/")
 
                         // tickets
-                        .requestMatchers(HttpMethod.GET, "/api/tickets/").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/tickets/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/tickets/").permitAll()
 
                         // places
-                        .requestMatchers(HttpMethod.GET, "/api/places/").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/places").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/places/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/places/").hasRole("ADMIN")
 
                         // passengers
-                        .requestMatchers(HttpMethod.GET, "/api/passengers/").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/passengers/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/passengers/").permitAll()
 
                         // payments
-                        .requestMatchers(HttpMethod.GET, "/api/payments/").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/payments/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/payments/").permitAll()
 
                         // qualquer outro metodo em qualquer um endpoint devera passar por autenticacao

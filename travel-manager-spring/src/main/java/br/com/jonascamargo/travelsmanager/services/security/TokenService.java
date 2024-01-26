@@ -18,7 +18,7 @@ import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.TokenGener
 @Service
 public class TokenService {
 
-    // env variable
+    // env variable in  application properties
     @Value("${api.security.token.secret}")
     private String secret;
 

@@ -1,6 +1,5 @@
 package br.com.jonascamargo.travelsmanager.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,20 +22,17 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/auth")
 public class AuthenticationController {
 
-    @Autowired
     private AuthenticationManager authenticationManager;
-    @Autowired
     private UserRepository userRepository;
-    @Autowired
     private TokenService tokenService;
 
     // RETIRAR O USER REPOSITORY DAQUI DEPOIS
 
-    // public AuthenticationController(AuthenticationManager authenticationManager, UserRepository userRepository, TokenService tokenService) {
-    //     this.authenticationManager = authenticationManager;
-    //     this.userRepository = userRepository;
-    //     this.tokenService = tokenService;
-    // }
+    public AuthenticationController(AuthenticationManager authenticationManager, UserRepository userRepository, TokenService tokenService) {
+        this.authenticationManager = authenticationManager;
+        this.userRepository = userRepository;
+        this.tokenService = tokenService;
+    }
 
     // Quando o usuario logar, ele recebera um token e com esse token conseguira acessar os endpoints definidos em SecurityConfiguration
     @PostMapping("/login")
