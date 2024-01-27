@@ -22,7 +22,6 @@ import br.com.jonascamargo.travelsmanager.services.logic.TicketService;
 import jakarta.validation.Valid;
 
 @RestController
-// @CrossOrigin(origins = )
 @RequestMapping("/api/tickets")
 public class TicketController {
     private final TicketService ticketService;

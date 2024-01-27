@@ -13,6 +13,7 @@ import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.PlaceNotFo
 import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.SourceEqualsDestinationException;
 import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.TicketNotFoundException;
 import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.TokenGenerationException;
+import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.UserAlreadyRegisteredException;
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -57,6 +58,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<RestErrorMessage> tokenGenerationHandler(TokenGenerationException exception) {
         RestErrorMessage threatResponse = new RestErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(threatResponse);
+    }
+
+    @ExceptionHandler(UserAlreadyRegisteredException.class)
+    private ResponseEntity<RestErrorMessage> userAlreadyRegisteredHandler(UserAlreadyRegisteredException exception) {
+        RestErrorMessage threatResponse = new RestErrorMessage(HttpStatus.CONFLICT, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(threatResponse);
     }
 
 

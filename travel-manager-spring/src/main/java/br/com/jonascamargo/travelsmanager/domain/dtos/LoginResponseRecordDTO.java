@@ -1,3 +1,3 @@
 package br.com.jonascamargo.travelsmanager.domain.dtos;
 
-public record LoginResponseDTO(String token) {}
+public record LoginResponseRecordDTO(String token) {}

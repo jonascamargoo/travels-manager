@@ -2,7 +2,6 @@ package br.com.jonascamargo.travelsmanager.services.security;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,8 +31,9 @@ public class SecurityFilter extends OncePerRequestFilter {
        var token = this.recoverToken(request);
        if(token != null) {
         var login = tokenService.validateToken(token);
+        // TA Vindo NULO o USERDETAILS - devo mexer no findByLogin? Ja ta sendo tratado em algum lugar?
         UserDetails userDetails = userRepository.findByLogin(login);
-
+    
         var authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
         // salvando token no contexto da req, para que o spring consiga utilizar depois. Caso nao encontremos usuarios, nada sera salvo e iremos para o proximo filtro
@@ -43,6 +43,11 @@ public class SecurityFilter extends OncePerRequestFilter {
        // ir para o proximo filtro
        filterChain.doFilter(request, response);
     }
+
+    // UserDetails user = userRepository.findByLogin(login);
+
+    // var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+    // SecurityContextHolder.getContext().setAuthentication(authentication);
 
     private String recoverToken(HttpServletRequest request){
         var authHeader = request.getHeader("Authorization");

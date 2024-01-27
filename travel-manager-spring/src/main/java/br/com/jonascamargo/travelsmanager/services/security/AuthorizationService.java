@@ -1,6 +1,5 @@
 package br.com.jonascamargo.travelsmanager.services.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -8,9 +7,10 @@ import org.springframework.stereotype.Service;
 
 import br.com.jonascamargo.travelsmanager.repositories.UserRepository;
 
-@Service    // ao implementar o UserDatailsService o spring security ja detecta a classe
+@Service
+// when implementing UserDetailsService spring security automatically detects the class
 public class AuthorizationService implements UserDetailsService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public AuthorizationService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -18,7 +18,13 @@ public class AuthorizationService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByLogin(username);
+        var userDetails = userRepository.findByLogin(username);
+        if(userDetails == null) {
+            throw new UsernameNotFoundException("No user found for "+ username + "!");
+        }
+       return userDetails;
     }
     
 }
+
+
