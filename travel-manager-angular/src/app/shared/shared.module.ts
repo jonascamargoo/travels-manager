@@ -9,7 +9,7 @@ import { AppMaterialModule } from './app-material/app-material.module';
 @NgModule({
   declarations: [
     ErrorDialogComponent,
-    CategoryPipe
+    CategoryPipe,
   ],
   imports: [
     CommonModule,

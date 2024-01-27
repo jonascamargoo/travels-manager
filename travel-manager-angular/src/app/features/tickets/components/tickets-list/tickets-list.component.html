@@ -1,29 +1,53 @@
-<p>tickets-list works!</p>
+
     <!-- checando se o obsaveble esta retornando dados com ngIf. Portanto, o ngIf sera responsavel por se inscrever no obsaveble, extrair as info e atribui-las a variavel local para o templates que chamam tickets e a tabela usara a lista para rendereiza-las-->
     <div *ngIf="tickets$ | async as tickets; else loading">
-        <table mat-table [dataSource]="tickets$" class="mat-elevation-z8">
+        <mat-card>
+            <table mat-table [dataSource]="tickets$" class="mat-elevation-z8">
 
-            <!-- Source Column -->
-            <ng-container matColumnDef="source">
-                <th mat-header-cell *matHeaderCellDef> Origem </th>
-                <td mat-cell *matCellDef="let ticket"> {{ ticket.source }} </td>
-            </ng-container>
-    
-            <!-- Destination Column -->
-            <ng-container matColumnDef="destination">
-                <th mat-header-cell *matHeaderCellDef> Destino </th>
-                <td mat-cell *matCellDef="let ticket"> {{ ticket.destination }} 
-                    <mat-icon aria-hidden="false" aria-label="Destino da passagem" fontIcon={{ ticket.destination | category }}></mat-icon>
-                </td>
-            </ng-container>
-    
+                <!-- Source Column -->
+                <ng-container matColumnDef="source">
+                    <th mat-header-cell *matHeaderCellDef> Origem </th>
+                    <td mat-cell *matCellDef="let ticket"> {{ ticket.source }} </td>
+                </ng-container>
         
-            <!-- faz a iteracao de cada coluna para fazer o link data source -->
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+                <!-- Destination Column -->
+                <ng-container matColumnDef="destination">
+                    <th mat-header-cell *matHeaderCellDef> Destino </th>
+                    <td mat-cell *matCellDef="let ticket"> {{ ticket.destination }} 
+                        <mat-icon aria-hidden="false" aria-label="Destino da passagem" fontIcon={{ ticket.destination | destination }}></mat-icon>
+                    </td>
+                </ng-container>
+
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef>
+                        <button mat-icon-button color="primary" aria-label="Adicionar uma passagem" (click)= onAdd()>
+                            <mat-icon >add</mat-icon>
+                        </button>
+                    </mat-header-cell>
+
+                    <mat-cell *matCellDef="let ticket">
+                        <button mat-icon-button color="primary" aria-label="Editar Passagem">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+
+                        <button mat-icon-button color="warn" aria-label="Remover Passagem">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-cell>
+
+                    
+
+                </ng-container>
+        
+            
+                <!-- faz a iteracao de cada coluna para fazer o link data source -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </mat-card>
     </div>
 
-    <ng-template #loading>
-        <mat-spinner></mat-spinner>
-    </ng-template>
+<ng-template #loading>
+    <mat-spinner></mat-spinner>
+</ng-template>
