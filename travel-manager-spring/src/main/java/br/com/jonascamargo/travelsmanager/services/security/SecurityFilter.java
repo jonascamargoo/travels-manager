@@ -31,29 +31,20 @@ public class SecurityFilter extends OncePerRequestFilter {
        var token = this.recoverToken(request);
        if(token != null) {
         var login = tokenService.validateToken(token);
-        // TA Vindo NULO o USERDETAILS - devo mexer no findByLogin? Ja ta sendo tratado em algum lugar?
         UserDetails userDetails = userRepository.findByLogin(login);
-    
         var authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-
-        // salvando token no contexto da req, para que o spring consiga utilizar depois. Caso nao encontremos usuarios, nada sera salvo e iremos para o proximo filtro
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
        }
-       // ir para o proximo filtro
+       // go to next filter
        filterChain.doFilter(request, response);
+
     }
-
-    // UserDetails user = userRepository.findByLogin(login);
-
-    // var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-    // SecurityContextHolder.getContext().setAuthentication(authentication);
 
     private String recoverToken(HttpServletRequest request){
         var authHeader = request.getHeader("Authorization");
-        // early return, caso nao haja token na req
         if(authHeader == null) return null;
-        // retirando o "Bearer" que por padrao vem na nossa identificacao, para pegar apenas o espaco vazio que vem apos
+        // Removing the "Bearer" that comes by default in our identification, to capture only the empty space that comes after
         return authHeader.replace("Bearer ", "");
     }
     

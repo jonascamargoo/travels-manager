@@ -29,8 +29,8 @@ public class Place extends RepresentationModel<Place> implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonProperty("_id") // sinalizar para o jackson transformar idPlace para _id. Solucao momentanea -
-                         // mudar para o uso de DTO posteriormente
+    // Signal Jackson to transform idPlace to _id. Temporary solution - switch to DTO later
+    @JsonProperty("_id")
     private UUID idPlace;
     private String name;
     private String slug;

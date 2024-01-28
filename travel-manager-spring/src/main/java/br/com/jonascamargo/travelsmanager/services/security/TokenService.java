@@ -24,7 +24,7 @@ public class TokenService {
 
     public String generateToken(User user) {
         try {
-            // algoritmo HMAC256 recebe por param uma secret que sera uma variavel de ambiente
+            // HMAC256 algorithm receives a secret as a parameter, which is an environment variable
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
                             .withIssuer("auth-api")
@@ -37,7 +37,7 @@ public class TokenService {
         }
     }
 
-   public String validateToken(String token){
+    public String validateToken(String token){
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
@@ -46,7 +46,7 @@ public class TokenService {
                     .verify(token)
                     .getSubject();
         } catch (JWTVerificationException exception){
-            // string vazia, pois o metodo a ser utilizado ja identificara que eh invalido
+            // Empty string, as the method to be used will already identify that it is invalid
             return "";
         }
     }

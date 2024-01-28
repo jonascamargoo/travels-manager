@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 
 @SpringBootApplication
-@EnableJpaAuditing // esta aqui para habilitar o Listener pra auditoria
+@EnableJpaAuditing
 public class TravelsManagerApplication {
 
 	public static void main(String[] args) {

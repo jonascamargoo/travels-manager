@@ -36,8 +36,8 @@ public class User implements UserDetails {
     private String login;
     private String password;
     private UserRole userRole;
-    private String email;
-    private String phoneNumber;
+    // private String email;
+    // private String phoneNumber;
     private String slug;
 
     public User(String login, String password, UserRole userRole) {
@@ -51,12 +51,6 @@ public class User implements UserDetails {
         return (this.userRole == UserRole.ADMIN)
                 ? List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"))
                 : List.of(new SimpleGrantedAuthority("ROLE_USER"));
-    }
-
-    @Override
-    public String getPassword() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
     }
 
     @Override

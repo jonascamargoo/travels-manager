@@ -28,13 +28,13 @@ public class AuthenticationController {
     public ResponseEntity<LoginResponseRecordDTO> login(@RequestBody @Valid AuthenticationRecordDTO authenticationRecordDTO) {
         String token = this.authenticationService.loginUser(authenticationRecordDTO);
         var loginResponseRecordDTO = new LoginResponseRecordDTO(token);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(loginResponseRecordDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(loginResponseRecordDTO);
     }
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody @Valid RegisterRecordDTO registerRecordDTO) {
         this.authenticationService.registerUser(registerRecordDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Usuário criado com sucesso");
+        return ResponseEntity.status(HttpStatus.CREATED).body("User created successfully");
     }
 
     

@@ -30,7 +30,7 @@ public class Ticket extends RepresentationModel<Ticket> implements Serializable 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonProperty("_id") // sinalizar para o jackson que deve transformar o idTicket para _id
+    @JsonProperty("_id")
     private UUID idTicket;
 
     @ManyToOne
