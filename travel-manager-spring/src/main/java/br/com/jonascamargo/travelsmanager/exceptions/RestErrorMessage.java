@@ -2,6 +2,11 @@ package br.com.jonascamargo.travelsmanager.exceptions;
 
 import org.springframework.http.HttpStatus;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class RestErrorMessage {
     private HttpStatus status;
     private String message;
@@ -11,19 +16,4 @@ public class RestErrorMessage {
         this.message = message;
     }
 
-    public HttpStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(HttpStatus status) {
-        this.status = status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }
