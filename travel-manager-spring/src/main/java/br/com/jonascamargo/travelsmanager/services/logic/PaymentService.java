@@ -5,11 +5,11 @@ import org.springframework.stereotype.Service;
 
 import com.github.slugify.Slugify;
 
-import br.com.jonascamargo.travelsmanager.domain.dtos.PaymentRecordDTO;
-import br.com.jonascamargo.travelsmanager.domain.models.Passenger;
-import br.com.jonascamargo.travelsmanager.domain.models.Payment;
-import br.com.jonascamargo.travelsmanager.domain.models.Ticket;
+import br.com.jonascamargo.travelsmanager.dtos.PaymentRecordDTO;
 import br.com.jonascamargo.travelsmanager.enums.PaymentMethod;
+import br.com.jonascamargo.travelsmanager.models.Passenger;
+import br.com.jonascamargo.travelsmanager.models.Payment;
+import br.com.jonascamargo.travelsmanager.models.Ticket;
 import br.com.jonascamargo.travelsmanager.repositories.PassengerRepository;
 import br.com.jonascamargo.travelsmanager.repositories.PaymentRepository;
 import br.com.jonascamargo.travelsmanager.repositories.TicketRepository;

@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 
 import com.github.slugify.Slugify;
 
-import br.com.jonascamargo.travelsmanager.domain.dtos.TicketRecordDTO;
-import br.com.jonascamargo.travelsmanager.domain.models.Ticket;
+import br.com.jonascamargo.travelsmanager.dtos.TicketRecordDTO;
 import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.InvalidTicketTimeException;
 import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.PlaceNotFoundException;
 import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.SourceEqualsDestinationException;
 import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.TicketNotFoundException;
+import br.com.jonascamargo.travelsmanager.models.Ticket;
 import br.com.jonascamargo.travelsmanager.repositories.TicketRepository;
 
 @Service

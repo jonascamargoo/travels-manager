@@ -1,4 +1,4 @@
-package br.com.jonascamargo.travelsmanager.domain.models;
+package br.com.jonascamargo.travelsmanager.models;
 
 import java.util.Collection;
 import java.util.List;

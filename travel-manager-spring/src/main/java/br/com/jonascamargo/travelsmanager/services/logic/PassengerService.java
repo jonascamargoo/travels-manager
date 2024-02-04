@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.github.slugify.Slugify;
 
-import br.com.jonascamargo.travelsmanager.domain.dtos.PassengerRecordDTO;
-import br.com.jonascamargo.travelsmanager.domain.models.Passenger;
+import br.com.jonascamargo.travelsmanager.dtos.PassengerRecordDTO;
 import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.PassengerNotFoundException;
+import br.com.jonascamargo.travelsmanager.models.Passenger;
 import br.com.jonascamargo.travelsmanager.repositories.PassengerRepository;
 
 @Service

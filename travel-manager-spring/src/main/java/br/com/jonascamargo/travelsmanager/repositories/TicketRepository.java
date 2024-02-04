@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import br.com.jonascamargo.travelsmanager.domain.models.Ticket;
+import br.com.jonascamargo.travelsmanager.models.Ticket;
 
 public interface TicketRepository extends JpaRepository<Ticket, UUID> {
     //Optional<Ticket> findByPassengerName(String passengerName);

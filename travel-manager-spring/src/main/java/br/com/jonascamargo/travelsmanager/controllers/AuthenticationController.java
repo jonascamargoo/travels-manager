@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.jonascamargo.travelsmanager.domain.dtos.AuthenticationRecordDTO;
-import br.com.jonascamargo.travelsmanager.domain.dtos.LoginResponseRecordDTO;
-import br.com.jonascamargo.travelsmanager.domain.dtos.RegisterRecordDTO;
+import br.com.jonascamargo.travelsmanager.dtos.AuthenticationRecordDTO;
+import br.com.jonascamargo.travelsmanager.dtos.LoginResponseRecordDTO;
+import br.com.jonascamargo.travelsmanager.dtos.RegisterRecordDTO;
 import br.com.jonascamargo.travelsmanager.services.security.AuthenticationService;
 import jakarta.validation.Valid;
 

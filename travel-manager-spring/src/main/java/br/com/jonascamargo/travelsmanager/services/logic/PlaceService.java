@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.github.slugify.Slugify;
 
-import br.com.jonascamargo.travelsmanager.domain.dtos.PlaceRecordDTO;
-import br.com.jonascamargo.travelsmanager.domain.models.Place;
+import br.com.jonascamargo.travelsmanager.dtos.PlaceRecordDTO;
 import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.AssociatedTicketsException;
 import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.PlaceNotFoundException;
+import br.com.jonascamargo.travelsmanager.models.Place;
 import br.com.jonascamargo.travelsmanager.repositories.PlaceRepository;
 
 @Service

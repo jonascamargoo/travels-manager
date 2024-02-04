@@ -13,8 +13,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import br.com.jonascamargo.travelsmanager.domain.dtos.PlaceRecordDTO;
-import br.com.jonascamargo.travelsmanager.domain.models.Place;
+import br.com.jonascamargo.travelsmanager.dtos.PlaceRecordDTO;
+import br.com.jonascamargo.travelsmanager.models.Place;
 import br.com.jonascamargo.travelsmanager.repositories.PlaceRepository;
 import br.com.jonascamargo.travelsmanager.services.logic.PlaceService;
 

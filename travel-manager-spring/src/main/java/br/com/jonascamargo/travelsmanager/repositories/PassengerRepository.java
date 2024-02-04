@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.jonascamargo.travelsmanager.domain.models.Passenger;
+import br.com.jonascamargo.travelsmanager.models.Passenger;
 
 
 public interface PassengerRepository extends JpaRepository<Passenger, UUID>{

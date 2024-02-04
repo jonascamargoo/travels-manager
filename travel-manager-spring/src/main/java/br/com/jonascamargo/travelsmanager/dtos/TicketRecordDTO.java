@@ -1,4 +1,4 @@
-package br.com.jonascamargo.travelsmanager.domain.dtos;
+package br.com.jonascamargo.travelsmanager.dtos;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

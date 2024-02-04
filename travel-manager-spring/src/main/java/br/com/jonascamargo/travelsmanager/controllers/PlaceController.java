@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.jonascamargo.travelsmanager.domain.dtos.PlaceRecordDTO;
-import br.com.jonascamargo.travelsmanager.domain.models.Place;
+import br.com.jonascamargo.travelsmanager.dtos.PlaceRecordDTO;
+import br.com.jonascamargo.travelsmanager.models.Place;
 import br.com.jonascamargo.travelsmanager.services.logic.PlaceService;
 import jakarta.validation.Valid;
 

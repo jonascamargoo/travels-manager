@@ -1,4 +1,4 @@
-package br.com.jonascamargo.travelsmanager.domain.dtos;
+package br.com.jonascamargo.travelsmanager.dtos;
 
 import br.com.jonascamargo.travelsmanager.enums.UserRole;
 import jakarta.validation.constraints.NotNull;

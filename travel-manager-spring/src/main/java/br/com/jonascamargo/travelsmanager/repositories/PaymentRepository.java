@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.jonascamargo.travelsmanager.domain.models.Payment;
+import br.com.jonascamargo.travelsmanager.models.Payment;
 
 public interface PaymentRepository extends JpaRepository<Payment, UUID>{
     

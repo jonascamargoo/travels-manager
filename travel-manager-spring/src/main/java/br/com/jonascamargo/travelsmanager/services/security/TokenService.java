@@ -12,8 +12,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 
-import br.com.jonascamargo.travelsmanager.domain.models.User;
 import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.TokenGenerationException;
+import br.com.jonascamargo.travelsmanager.models.User;
 
 @Service
 public class TokenService {

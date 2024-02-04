@@ -1,4 +1,4 @@
-package br.com.jonascamargo.travelsmanager.domain.dtos;
+package br.com.jonascamargo.travelsmanager.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

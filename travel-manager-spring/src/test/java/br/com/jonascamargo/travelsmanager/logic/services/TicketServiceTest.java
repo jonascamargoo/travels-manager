@@ -19,8 +19,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import br.com.jonascamargo.travelsmanager.domain.dtos.TicketRecordDTO;
-import br.com.jonascamargo.travelsmanager.domain.models.Ticket;
+import br.com.jonascamargo.travelsmanager.dtos.TicketRecordDTO;
+import br.com.jonascamargo.travelsmanager.models.Ticket;
 import br.com.jonascamargo.travelsmanager.repositories.TicketRepository;
 import br.com.jonascamargo.travelsmanager.services.logic.TicketService;
 

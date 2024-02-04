@@ -5,10 +5,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.jonascamargo.travelsmanager.domain.dtos.AuthenticationRecordDTO;
-import br.com.jonascamargo.travelsmanager.domain.dtos.RegisterRecordDTO;
-import br.com.jonascamargo.travelsmanager.domain.models.User;
+import br.com.jonascamargo.travelsmanager.dtos.AuthenticationRecordDTO;
+import br.com.jonascamargo.travelsmanager.dtos.RegisterRecordDTO;
 import br.com.jonascamargo.travelsmanager.exceptions.customExceptions.UserAlreadyRegisteredException;
+import br.com.jonascamargo.travelsmanager.models.User;
 import br.com.jonascamargo.travelsmanager.repositories.UserRepository;
 
 @Service
